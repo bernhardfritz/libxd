@@ -30,7 +30,7 @@ make
 ./examples/fireworks/sketch
 ```
 
-If everything worked out well, you should see the [fireworks example](fireworks.md):
+If everything worked out well, you should see the [fireworks example](examples/fireworks.md):
 
 ![screenshot001](_media/screenshots/screenshot001.png)
 

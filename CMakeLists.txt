@@ -31,6 +31,7 @@ include_directories(
 set(SOURCES
     src/ellipse.cpp
     src/image.cpp
+    src/mouse.cpp
     src/pixels.cpp
     src/rect.cpp
     src/settings.cpp

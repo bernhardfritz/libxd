@@ -6,7 +6,6 @@
 #include "triangle.hpp"
 #include <glad/glad.h>
 #include <glm/gtc/matrix_transform.hpp>
-#include <GLFW/glfw3.h>
 #include <stack>
 #include <sstream>
 #include <algorithm>
@@ -15,9 +14,9 @@
 int width = 100, height = 100;
 Pixels pixels;
 
-static bool loop_ = 1;
-
 static GLFWwindow* window;
+static bool loop_ = true;
+
 static GLuint program;
 static int framebufferWidth, framebufferHeight;
 static int displayDensity_;

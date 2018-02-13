@@ -14,4 +14,5 @@
 	- [Transform](transform.md)
 
 - Examples
-	- [Fireworks](fireworks.md)
+	- [Fireworks](examples/fireworks.md)
+	- [Mouse](examples/mouse.md)
