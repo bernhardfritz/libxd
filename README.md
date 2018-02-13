@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://github.io/bernhardfritz/libxd">
+  <a href="https://bernhardfritz.github.io/libxd/">
     <img alt="libxd" src="./docs/_media/logo.svg">
   </a>
 </p>
@@ -10,7 +10,7 @@
 
 # Links
 
-* [Documentation](https://github.io/bernhardfritz/libxd)
+* [Documentation](https://bernhardfritz.github.io/libxd/)
 
 # Changelog
 
