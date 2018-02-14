@@ -23,9 +23,8 @@
 
 ### Changed
 * the documentation.
-
-### Fixed
-* the lib folder being wrongly identified as a first party source folder by github's linguist.
+* the location of include/stb_image.h to lib/stb/stb_image.h
+* some cmake build scripts
 
 ## 0.0.1
 

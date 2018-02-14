@@ -28,6 +28,10 @@ include_directories(
     PRIVATE lib/glm
 )
 
+include_directories(
+    PRIVATE lib/stb
+)
+
 set(SOURCES
     src/ellipse.cpp
     src/image.cpp
