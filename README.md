@@ -26,6 +26,9 @@
 * the location of include/stb_image.h to lib/stb/stb_image.h
 * some cmake build scripts
 
+### Fixed
+* the lib folder being wrongly identified as a first party source folder by github's linguist.
+
 ## 0.0.1
 
 This is the start of libxd as a remote repository. Prior to publishing libxd to github goes about 2 months of local development. These are rudimentary changelogs from the time before github:
