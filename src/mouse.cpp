@@ -29,12 +29,12 @@ static void mouse_button_callback(GLFWwindow* window, int button, int action, in
     }
 }
 
-void mousePressed(void (*onMousePressed)(int)) { // onMousePressed(int button)
+void mousePressed(void (*onMousePressed)(int)) { // onMousePressed(button)
     onMousePressed_ = onMousePressed;
     glfwSetMouseButtonCallback(glfwGetCurrentContext(), mouse_button_callback); 
 }
 
-void mouseReleased(void (*onMouseReleased)(int)) { // onMouseReleased(int button)
+void mouseReleased(void (*onMouseReleased)(int)) { // onMouseReleased(button)
     onMouseReleased_ = onMouseReleased;
     glfwSetMouseButtonCallback(glfwGetCurrentContext(), mouse_button_callback);
 }
@@ -47,7 +47,7 @@ static void scroll_callback(GLFWwindow* window, double xoffset, double yoffset) 
     }
 }
 
-void mouseWheel(void (*onMouseWheel)(float)) { // onMouseWheel(float delta)
+void mouseWheel(void (*onMouseWheel)(float)) { // onMouseWheel(delta)
     onMouseWheel_ = onMouseWheel;
     glfwSetScrollCallback(glfwGetCurrentContext(), scroll_callback);
 }

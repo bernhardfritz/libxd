@@ -14,19 +14,35 @@
 
 # Changelog
 
+## 0.0.3
+
+### Added
+
+* the possibility to define key event callbacks using the functions `keyPressed()` and `keyReleased()`.
+* keyboard interaction example.
+
+### Changed
+
+* the documentation.
+* some cmake build scripts.
+
+
 ## 0.0.2
 
 ### Added
-* the possibility to define mouse event callbacks using the functions `mouseMoved()`, `mousePressed()`, `mouseReleased()`, `mouseWheel()`.
-* mouse example.
+
+* the possibility to define mouse event callbacks using the functions `mouseMoved()`, `mousePressed()`, `mouseReleased()` and `mouseWheel()`.
+* mouse interaction example.
 * Google Analytics.
 
 ### Changed
+
 * the documentation.
-* the location of include/stb_image.h to lib/stb/stb_image.h
-* some cmake build scripts
+* the location of `include/stb_image.h` to `lib/stb/stb_image.h`.
+* some cmake build scripts.
 
 ### Fixed
+
 * the lib folder being wrongly identified as a first party source folder by github's linguist.
 
 ## 0.0.1
@@ -36,11 +52,11 @@ This is the start of libxd as a remote repository. Prior to publishing libxd to 
 ### Added
 
 * the functions `setup()`, `draw()` and `destroy()` using forward declaration.
-* global variables `width`, `height` to retrieve the current width and height
+* global variables `width`, `height` to retrieve the current width and height.
 * shape functions: `ellipse()`, `line()`, `point()`, `rect()`, `triangle()`.
 * vertex, geometry and fragment shaders which contain e.g. the logic that allows to draw outlined shapes in a single render cycle.
 * drawing style functions: `background()`, `clear()`, `ellipseMode()`, `fill()`, `noFill()`, `noStroke()`, `rectMode()`, `stroke()`, `strokeWeight()`.
-* support of alpha channel for functions that deal with colors
+* support of alpha channel for functions that deal with colors.
 * transformation functions: `applyMatrix()`, `resetMatrix()`, `rotate()`, `scale()`, `translate()`.
 * constants: `HALF_PI`, `PI`, `QUARTER_PI`, `TWO_PI`.
 * the functions `push()` and `pop()` which allow the current drawing style settings and matrix transformations to be temporarily saved on a stack.
@@ -48,8 +64,8 @@ This is the start of libxd as a remote repository. Prior to publishing libxd to 
 * support for image loading.
 * the possibility to directly modify image pixels using the member variable `Image::pixels`.
 * convenience functions like: `millis()`, `random()`, `randomSeed()`.
-* functions that allow to alter the control flow: `loop()`, `noLoop()`
-* a function `redraw()` that ought to be used in conjunction with `noLoop`
+* functions that allow to alter the control flow: `loop()`, `noLoop()`.
+* a function `redraw()` that ought to be used in conjunction with `noLoop`.
 * libraries: `glad`, `glfw`, `glm`, `stb_image`.
 * a docsify documentation.
 * cmake build scripts.

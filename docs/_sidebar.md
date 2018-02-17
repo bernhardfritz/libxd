@@ -15,4 +15,5 @@
 
 - Examples
 	- [Fireworks](examples/fireworks.md)
-	- [Mouse](examples/mouse.md)
+	- [Keyboard interaction](examples/keyboard.md)
+	- [Mouse interaction](examples/mouse.md)

@@ -1,5 +1,39 @@
 # Events
 
+## keyPressed()
+
+#### Description
+
+The `keyPressed()` function can be used to define a callback function that is called every time a key is pressed. The callback function (typically called onKeyPressed) ought to have 1 integer parameter representing the keycode.
+
+#### Syntax
+
+```C++
+keyPressed(onKeyPressed)
+```
+
+#### Parameters
+
+`onKeyPressed` void (*onKeyPressed)(int): the callback function
+
+---
+
+## keyReleased()
+
+#### Description
+
+The `keyReleased()` function can be used to define a callback function that is called every time a key is released. The callback function (typically called onKeyReleased) ought to have 1 integer parameter representing the keycode.
+
+#### Syntax
+
+```C++
+keyReleased(onKeyReleased)
+```
+
+#### Parameters
+
+`onKeyReleased` void (*onKeyReleased)(int): the callback function
+
 ## mouseMoved()
 
 #### Description

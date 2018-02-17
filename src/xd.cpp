@@ -88,12 +88,6 @@ static void framebuffer_size_callback(GLFWwindow* window, int framebufferWidth_,
 	updateFramebufferSize(framebufferWidth_, framebufferHeight_);
 }
 
-static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods) {
-    if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS) {
-        glfwSetWindowShouldClose(window, GLFW_TRUE);
-    }
-}
-
 int displayDensity() {
 	return displayDensity_;
 }
@@ -466,7 +460,6 @@ int main(int argc, char* argv[]) {
 
 	glfwSetWindowSizeCallback(window, window_size_callback);
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
-	glfwSetKeyCallback(window, key_callback);
 
 	double previousTime = glfwGetTime();
 	int frameCount = 0;
@@ -486,6 +479,11 @@ int main(int argc, char* argv[]) {
 		}
 
         glfwPollEvents();
+
+		int state = glfwGetKey(window, GLFW_KEY_ESCAPE);
+		if (state == GLFW_PRESS) {
+			glfwSetWindowShouldClose(window, GLFW_TRUE);
+		}
 	}
 	destroy();
 	pop_();

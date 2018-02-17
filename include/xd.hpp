@@ -6,9 +6,8 @@
 #include "utils.hpp"
 #include "drawmode.hpp"
 #include "mouse.hpp"
-#include <glm/vec3.hpp>
-#include <glm/vec4.hpp>
-#include <glm/trigonometric.hpp>
+#include "keyboard.hpp"
+#include <glm/glm.hpp>
 #include <GLFW/glfw3.h>
 
 using namespace std;
