@@ -1,6 +1,8 @@
 #include "firework.hpp"
 #include <xd.hpp>
 
+using namespace xd;
+
 vector<Firework*> fireworks;
 vec2 gravity;
 

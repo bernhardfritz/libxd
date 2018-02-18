@@ -2,6 +2,8 @@
 
 using namespace std;
 
+namespace xd {
+
 Shape::~Shape() {
 	glDeleteVertexArrays(1, &vao);
 }
@@ -89,3 +91,5 @@ GLuint Shape::getVao() {
 GLsizei Shape::getIndicesCount() {
 	return indicesCount;
 }
+
+} // namespace xd

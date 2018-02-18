@@ -5,6 +5,8 @@
 #include <glm/fwd.hpp>
 #include <vector>
 
+namespace xd {
+
 class Pixels {
 private:
 	std::vector<GLubyte> data;
@@ -29,5 +31,7 @@ public:
 	void lazyResize();
 	void lazyRead();
 };
+
+} // namespace xd
 
 #endif /* PIXELS_HPP */

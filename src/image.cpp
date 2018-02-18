@@ -4,6 +4,8 @@
 using namespace std;
 using namespace glm;
 
+namespace xd {
+
 Image::Image() : pixels(*this) {}
 
 Image::~Image() {
@@ -58,3 +60,5 @@ void Image::ImagePixels::uploadIfNecessary() {
 		glBindTexture(GL_TEXTURE_2D, 0);
 	}
 }
+
+} // namespace xd

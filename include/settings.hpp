@@ -5,6 +5,8 @@
 #include <glm/vec3.hpp>
 #include <glm/mat4x4.hpp>
 
+namespace xd {
+
 typedef struct {
 	glm::vec4 fillColor, strokeColor;
 	int doFill, doStroke, doTexture;
@@ -17,5 +19,7 @@ typedef struct {
 
 void settings_new(Settings** out);
 void settings_destroy(Settings* settings);
+
+} // namespace xd
 
 #endif /* SETTINGS_HPP */

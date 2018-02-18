@@ -5,6 +5,8 @@
 #include <glad/glad.h>
 #include <vector>
 
+namespace xd {
+
 class Shape {
 private:
 	GLuint vao;
@@ -17,5 +19,7 @@ public:
 	GLuint getVao();
 	GLsizei getIndicesCount();
 };
+
+} // namespace xd
 
 #endif /* SHAPE_HPP */

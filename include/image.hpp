@@ -5,6 +5,8 @@
 #include <glm/fwd.hpp>
 #include <vector>
 
+namespace xd {
+
 class Image {
 public:
 	GLuint texture;
@@ -41,5 +43,7 @@ public:
 	Image();
 	~Image();
 };
+
+} // namespace xd
 
 #endif /* IMAGE_HPP */

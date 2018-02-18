@@ -1,5 +1,7 @@
 #include <xd.hpp>
 
+using namespace xd;
+
 float mouseX;
 float mouseY;
 vec4 lineColor;

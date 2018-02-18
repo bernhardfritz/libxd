@@ -11,6 +11,8 @@
 #include <algorithm>
 #include <random>
 
+namespace xd {
+
 int width = 100, height = 100;
 Pixels pixels;
 
@@ -397,6 +399,10 @@ void triangle(float x1, float y1, float x2, float y2, float x3, float y3) {
 	pixels.lazyRead();
 	pop();
 }
+
+} // namespace xd
+
+using namespace xd;
 
 int main(int argc, char* argv[]) {
 	glfwSetErrorCallback(error_callback);

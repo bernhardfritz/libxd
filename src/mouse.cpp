@@ -1,6 +1,8 @@
 #include "mouse.hpp"
 #include <GLFW/glfw3.h>
 
+namespace xd {
+
 static void (*onMouseMoved_)(float, float) = 0;
 static void (*onMousePressed_)(int) = 0;
 static void (*onMouseReleased_)(int) = 0;
@@ -51,3 +53,5 @@ void mouseWheel(void (*onMouseWheel)(float)) { // onMouseWheel(delta)
     onMouseWheel_ = onMouseWheel;
     glfwSetScrollCallback(glfwGetCurrentContext(), scroll_callback);
 }
+
+} // namespace xd

@@ -1,5 +1,7 @@
 #include <xd.hpp>
 
+using namespace xd;
+
 vec2 position;
 vec2 velocity;
 vec2 acceleration;

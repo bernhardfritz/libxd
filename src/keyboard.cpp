@@ -2,6 +2,8 @@
 #include <GLFW/glfw3.h>
 #include <iostream>
 
+namespace xd {
+
 static void (*onKeyPressed_)(int) = 0;
 static void (*onKeyReleased_)(int) = 0;
 
@@ -26,3 +28,5 @@ void keyReleased(void (*onKeyReleased)(int)) { // onKeyReleased(key)
     onKeyReleased_ = onKeyReleased;
     glfwSetKeyCallback(glfwGetCurrentContext(), key_callback);
 }
+
+} // namespace xd

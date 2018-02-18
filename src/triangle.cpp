@@ -3,6 +3,8 @@
 using namespace std;
 using namespace glm;
 
+namespace xd {
+
 Triangle::Triangle(int framebufferWidth, int framebufferHeight) {
 	Vertex vertices_arr[] = {
 		{ vec2(0.0f, 0.0f), vec2(0.0f, 1.0f), vec3(1.0f, 0.0f, 0.0f), 0.0f },
@@ -19,3 +21,5 @@ Triangle::Triangle(int framebufferWidth, int framebufferHeight) {
 
 	init(vertices, indices);
 }
+
+} // namespace xd

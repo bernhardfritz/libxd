@@ -13,6 +13,8 @@
 using namespace std;
 using namespace glm;
 
+namespace xd {
+
 extern int width, height;
 extern Pixels pixels;
 
@@ -51,6 +53,8 @@ void line(float x1, float y1, float x2, float y2);
 void point(float x, float y);
 void rect(float x, float y, float w, float h);
 void triangle(float x1, float y1, float x2, float y2, float x3, float y3);
+
+} // namespace xd
 
 void setup();
 void draw();

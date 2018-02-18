@@ -1,5 +1,7 @@
 #include "firework.hpp"
 
+using namespace xd;
+
 Firework::Firework(vec2 position) {
     rocket = new Particle();
     rocket->position = position;

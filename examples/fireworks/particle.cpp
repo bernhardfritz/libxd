@@ -1,5 +1,7 @@
 #include "particle.hpp"
 
+using namespace xd;
+
 Particle::Particle() {
     lifespan = -1;
     color = vec3(1.0f);

@@ -1,4 +1,4 @@
-#version 410 core
+#version 330 core
 
 uniform vec4 uFillColor;
 uniform vec4 uStrokeColor;

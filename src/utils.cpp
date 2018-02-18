@@ -9,6 +9,8 @@
 using namespace std;
 using namespace glm;
 
+namespace xd {
+
 float map(float x, float in_min, float in_max, float out_min, float out_max) {
 	return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
 }
@@ -31,3 +33,5 @@ Image* loadImage(const char* filename) {
 	glBindTexture(GL_TEXTURE_2D, 0);
 	return img;
 }
+
+} // namespace xd

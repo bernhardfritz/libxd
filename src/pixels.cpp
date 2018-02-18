@@ -4,6 +4,8 @@
 using namespace std;
 using namespace glm;
 
+namespace xd {
+
 Pixels::Pixels() : resizeFlag(true), readFlag(true) {}
 
 Pixels::Proxy::Proxy(Pixels& outer_, int index_) : outer(outer_), index(index_), x(index % (width * displayDensity())), y(index / (width * displayDensity())) {}
@@ -55,3 +57,5 @@ void Pixels::lazyResize() {
 void Pixels::lazyRead() {
 	readFlag = true;
 }
+
+} // namespace xd

@@ -14,6 +14,17 @@
 
 # Changelog
 
+## 0.0.4
+
+### Added
+
+* namespace xd.
+
+### Changed
+
+* shader version to GLSL 3.30.
+* the documentation.
+
 ## 0.0.3
 
 ### Added
@@ -37,8 +48,8 @@
 
 ### Changed
 
-* the documentation.
 * the location of `include/stb_image.h` to `lib/stb/stb_image.h`.
+* the documentation.
 * some cmake build scripts.
 
 ### Fixed

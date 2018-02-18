@@ -3,6 +3,8 @@
 #include <stdio.h>
 #include <stdarg.h>
 
+namespace xd {
+
 void validateShader(GLuint shader) {
 	GLint compile_status;
 	glGetShaderiv(shader, GL_COMPILE_STATUS, &compile_status);
@@ -56,3 +58,5 @@ void destroyProgram(GLuint program) {
 GLint createUniform(GLuint program, const GLchar* name) {
 	return glGetUniformLocation(program, name);
 }
+
+} // namespace xd

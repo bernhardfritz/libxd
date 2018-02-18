@@ -3,11 +3,13 @@
 
 #include "shape.hpp"
 
-#define SEGMENTS 64
+namespace xd {
 
 class Ellipse : public Shape {
 public:
 	Ellipse(int framebufferWidth, int framebufferHeight);
 };
+
+} // namespace xd
 
 #endif /* ELLIPSE_HPP */

@@ -3,6 +3,8 @@
 
 using namespace glm;
 
+namespace xd {
+
 void settings_new(Settings** out) {
 	Settings* settings = (Settings*) malloc(sizeof(Settings));
 	settings->fillColor = vec4(1.0f, 1.0f, 1.0f, 1.0f);
@@ -19,3 +21,5 @@ void settings_new(Settings** out) {
 void settings_destroy(Settings* settings) {
 	free(settings);
 }
+
+} // namespace xd

@@ -72,7 +72,11 @@
 #define KEY_RIGHT_SUPER GLFW_KEY_RIGHT_SUPER     // 347
 #define KEY_MENU GLFW_KEY_MENU                   // 348
 
+namespace xd {
+
 void keyPressed(void (*onKeyPressed)(int));   // onKeyPressed(key)
 void keyReleased(void (*onKeyReleased)(int)); // onKeyReleased(key)
+
+} // namespace xd
 
 #endif /* KEYBOARD_HPP */
