@@ -14,15 +14,19 @@
 
 # Changelog
 
-## 0.0.4
+## 0.1.0
 
 ### Added
 
 * namespace xd.
+* install targets.
+* a small program that can be used to embed text-based resource files into headers.
 
 ### Changed
 
 * shader version to GLSL 3.30.
+* include directory folder structure.
+* the way how shaders are loaded.
 * the documentation.
 
 ## 0.0.3

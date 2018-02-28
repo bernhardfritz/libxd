@@ -1,4 +1,4 @@
-#include "image.hpp"
+#include <xd/image.hpp>
 #include <glm/vec4.hpp>
 
 using namespace std;

@@ -1,6 +1,6 @@
-#include "utils.hpp"
+#include <xd/utils.hpp>
 #define STB_IMAGE_IMPLEMENTATION
-#include "stb_image.h"
+#include <stb/stb_image.h>
 #include <glm/vec3.hpp>
 #include <glm/vec4.hpp>
 #include <fstream>

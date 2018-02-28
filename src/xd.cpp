@@ -1,9 +1,12 @@
-#include "xd.hpp"
-#include "shader.hpp"
-#include "settings.hpp"
-#include "ellipse.hpp"
-#include "rect.hpp"
-#include "triangle.hpp"
+#include <xd/xd.hpp>
+#include <xd/shader.hpp>
+#include <xd/settings.hpp>
+#include <xd/ellipse.hpp>
+#include <xd/rect.hpp>
+#include <xd/triangle.hpp>
+#include <xd/vs.hpp>
+#include <xd/gs.hpp>
+#include <xd/fs.hpp>
 #include <glad/glad.h>
 #include <glm/gtc/matrix_transform.hpp>
 #include <stack>
@@ -427,16 +430,9 @@ int main(int argc, char* argv[]) {
 	gladLoadGLLoader((GLADloadproc) glfwGetProcAddress);
 	glfwSwapInterval(1);
 
-	const char* c_str;
-
-	string vs = readFile("vs.glsl");
-	GLuint vertex_shader = createVertexShader(&(c_str=vs.c_str()));
-
-	string gs = readFile("gs.glsl");
-	GLuint geometry_shader = createGeometryShader(&(c_str=gs.c_str()));
-
-	string fs = readFile("fs.glsl");
-	GLuint fragment_shader = createFragmentShader(&(c_str=fs.c_str()));
+	GLuint vertex_shader = createVertexShader(&vs);
+	GLuint geometry_shader = createGeometryShader(&gs);
+	GLuint fragment_shader = createFragmentShader(&fs);
 
 	program = createProgram(3, vertex_shader, geometry_shader, fragment_shader);
 

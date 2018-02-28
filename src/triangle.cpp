@@ -1,4 +1,4 @@
-#include "triangle.hpp"
+#include <xd/triangle.hpp>
 
 using namespace std;
 using namespace glm;

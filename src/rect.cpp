@@ -1,4 +1,4 @@
-#include "rect.hpp"
+#include <xd/rect.hpp>
 #include <glm/vec2.hpp>
 #include <glm/vec3.hpp>
 

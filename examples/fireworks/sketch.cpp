@@ -1,5 +1,5 @@
 #include "firework.hpp"
-#include <xd.hpp>
+#include <xd/xd.hpp>
 
 using namespace xd;
 

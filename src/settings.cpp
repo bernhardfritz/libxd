@@ -1,5 +1,5 @@
-#include "settings.hpp"
-#include "utils.hpp"
+#include <xd/settings.hpp>
+#include <xd/utils.hpp>
 
 using namespace glm;
 

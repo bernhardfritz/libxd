@@ -1,4 +1,4 @@
-#include "mouse.hpp"
+#include <xd/mouse.hpp>
 #include <GLFW/glfw3.h>
 
 namespace xd {

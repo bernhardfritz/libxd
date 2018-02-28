@@ -1,36 +1,15 @@
 cmake_minimum_required(VERSION 3.1)
 project(xd)
 set (CMAKE_CXX_STANDARD 11)
-find_package(OpenGL REQUIRED)
 
-add_library(glad lib/glad/src/glad.c)
-include_directories(
-    PRIVATE lib/glad/include
-)
-link_libraries(
-    glad ${CMAKE_DL_LIBS}
-)
+add_library(glad STATIC lib/glad/src/glad.c)
+target_include_directories(glad PRIVATE lib/glad/include)
+target_link_libraries(glad ${CMAKE_DL_LIBS})
 
-set(GLFW_BUILD_EXAMPLES OFF CACHE INTERNAL "Build the GLFW example programs")
-set(GLFW_BUILD_TESTS OFF CACHE INTERNAL "Build the GLFW test programs")
-set(GLFW_BUILD_DOCS OFF CACHE INTERNAL "Build the GLFW documentation")
-set(GLFW_INSTALL OFF CACHE INTERNAL "Generate installation target")
+set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
+set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
+set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 add_subdirectory(lib/glfw)
-include_directories(
-    PRIVATE lib/glfw/include
-)
-link_libraries(
-    glfw ${GLFW_LIBRARIES}
-)
-
-add_subdirectory(lib/glm)
-include_directories(
-    PRIVATE lib/glm
-)
-
-include_directories(
-    PRIVATE lib/stb
-)
 
 set(SOURCES
     src/ellipse.cpp
@@ -45,17 +24,57 @@ set(SOURCES
     src/triangle.cpp
     src/utils.cpp
     src/xd.cpp
+    include/xd/vs.hpp
+    include/xd/gs.hpp
+    include/xd/fs.hpp
 )
 add_library(${PROJECT_NAME} STATIC ${SOURCES})
 target_include_directories(${PROJECT_NAME}
     PUBLIC include
+    PUBLIC lib/glad/include
+    PUBLIC lib/glm
+    PUBLIC lib/stb/include
 )
 target_link_libraries(${PROJECT_NAME}
-    ${OPENGL_LIBRARY}
+    glad
+    glfw
 )
-file (GLOB_RECURSE RESOURCES resources/*.*)
-foreach(RESOURCE ${RESOURCES})
-configure_file(${RESOURCE} ${CMAKE_CURRENT_BINARY_DIR} COPYONLY)
-endforeach(RESOURCE ${RESOURCES})
+
+add_executable(embedfile src/embedfile.cpp)
+
+add_custom_command(
+    OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/include/xd/vs.hpp
+    COMMAND embedfile vs ${CMAKE_CURRENT_SOURCE_DIR}/resources/vs.glsl ${CMAKE_CURRENT_SOURCE_DIR}/include/xd/vs.hpp
+    DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/resources/vs.glsl
+)
+
+add_custom_command(
+    OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/include/xd/gs.hpp
+    COMMAND embedfile gs ${CMAKE_CURRENT_SOURCE_DIR}/resources/gs.glsl ${CMAKE_CURRENT_SOURCE_DIR}/include/xd/gs.hpp
+    DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/resources/gs.glsl
+)
+
+add_custom_command(
+    OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/include/xd/fs.hpp
+    COMMAND embedfile fs ${CMAKE_CURRENT_SOURCE_DIR}/resources/fs.glsl ${CMAKE_CURRENT_SOURCE_DIR}/include/xd/fs.hpp
+    DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/resources/fs.glsl
+)
 
 add_subdirectory(examples)
+
+install(
+    TARGETS ${PROJECT_NAME} glad
+    DESTINATION lib
+)
+install(
+    DIRECTORY include/
+    DIRECTORY lib/glad/include/
+    DIRECTORY lib/glm/
+    DIRECTORY lib/stb/include/
+    DESTINATION include
+    FILES_MATCHING PATTERN "*.h" PATTERN "*.hpp" PATTERN "*.inl" PATTERN "*.cmake"
+)
+install(
+    DIRECTORY resources/
+    DESTINATION resources
+)

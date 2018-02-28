@@ -1,6 +1,6 @@
-#include "ellipse.hpp"
-#include "utils.hpp"
-#include "constants.hpp"
+#include <xd/ellipse.hpp>
+#include <xd/utils.hpp>
+#include <xd/constants.hpp>
 #include <glm/trigonometric.hpp>
 
 #define ELLIPSE_SEGMENTS 64

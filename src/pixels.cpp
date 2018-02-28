@@ -1,5 +1,5 @@
-#include "pixels.hpp"
-#include "xd.hpp"
+#include <xd/pixels.hpp>
+#include <xd/xd.hpp>
 
 using namespace std;
 using namespace glm;

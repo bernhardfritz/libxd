@@ -1,4 +1,4 @@
-#include "shape.hpp"
+#include <xd/shape.hpp>
 
 using namespace std;
 
