@@ -1,5 +1,8 @@
 - Getting started
 	- [Quick start](quickstart.md)
+	- [Compiling libxd from source](compile.md)
+	<!-- - [Installing libxd from source](install.md) -->
+	- [Running the examples](run.md)
 
 - Reference
 	- [Outline](outline.md)

@@ -16,5 +16,3 @@ Made with :heart: by [Bernhard Fritz](https://github.com/bernhardfritz)
 Feel free to support me with :beer: or :coffee:
 
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.me/bernhardefritz)
-
-Emoji artwork on the titlepage and the favicon is provided by [EmojiOne](https://www.emojione.com/) and is licensed under [CC-BY 4.0](https://creativecommons.org/licenses/by/4.0/legalcode)

@@ -7,7 +7,6 @@
 #include <xd/vs.hpp>
 #include <xd/gs.hpp>
 #include <xd/fs.hpp>
-#include <glad/glad.h>
 #include <glm/gtc/matrix_transform.hpp>
 #include <stack>
 #include <sstream>

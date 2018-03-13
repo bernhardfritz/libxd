@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.1)
 project(xd)
 set (CMAKE_CXX_STANDARD 11)
 
+# set(CMAKE_VERBOSE_MAKEFILE ON)
+
 add_library(glad STATIC lib/glad/src/glad.c)
 target_include_directories(glad PRIVATE lib/glad/include)
 target_link_libraries(glad ${CMAKE_DL_LIBS})
@@ -74,7 +76,13 @@ install(
     DESTINATION include
     FILES_MATCHING PATTERN "*.h" PATTERN "*.hpp" PATTERN "*.inl" PATTERN "*.cmake"
 )
-install(
-    DIRECTORY resources/
-    DESTINATION resources
-)
+
+set(CPACK_PACKAGE_NAME "libxd")
+set(CPACK_PACKAGE_VENDOR "Bernhard Fritz")
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "libxd - A simple 2D graphics library for C++.")
+set(CPACK_PACKAGE_VERSION "0.1.0")
+
+set(CPACK_MONOLITHIC_INSTALL 1)
+set(CPACK_INCLUDE_TOPLEVEL_DIRECTORY 0)
+
+include(CPack)

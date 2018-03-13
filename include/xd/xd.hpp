@@ -8,6 +8,7 @@
 #include "mouse.hpp"
 #include "keyboard.hpp"
 #include <glm/glm.hpp>
+#include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
 using namespace std;

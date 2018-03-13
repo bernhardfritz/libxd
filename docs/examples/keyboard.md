@@ -1,3 +1,3 @@
 # Keyboard interaction
 
-![screenshot003](_media/screenshots/screenshot003.png)
+![screenshot003](../_media/screenshots/screenshot003.png)

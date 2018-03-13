@@ -1,3 +1,3 @@
 # Fireworks
 
-![screenshot001](_media/screenshots/screenshot001.png)
+![demo001](../_media/gifs/demo001.gif)

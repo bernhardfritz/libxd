@@ -19,14 +19,17 @@
 ### Added
 
 * namespace xd.
-* install targets.
 * a small program that can be used to embed text-based resource files into headers.
+* install targets.
+* package targets.
+* releases for Linux, macOS and Windows.
 
 ### Changed
 
 * shader version to GLSL 3.30.
 * include directory folder structure.
 * the way how shaders are loaded.
+* the libxd logo.
 * the documentation.
 
 ## 0.0.3
