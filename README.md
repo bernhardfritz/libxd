@@ -14,7 +14,7 @@
 
 # Changelog
 
-## 0.1.0
+## [0.1.0](https://github.com/bernhardfritz/libxd/releases/tag/0.1.0)
 
 ### Added
 
