@@ -20,3 +20,4 @@
 	- [Fireworks](examples/fireworks.md)
 	- [Keyboard interaction](examples/keyboard.md)
 	- [Mouse interaction](examples/mouse.md)
+	- [Space Invaders](examples/spaceinvaders.md)
