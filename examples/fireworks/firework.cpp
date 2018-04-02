@@ -5,7 +5,7 @@ using namespace xd;
 Firework::Firework(vec2 position) {
     rocket = new Particle();
     rocket->position = position;
-    rocket->velocity = vec2(0.0f, random(-12.0f, -13.0f));
+    rocket->velocity = vec2(0.0f, random(-10.0f, -11.0f));
     rocket->color = vec3(1.0f, 0.0f, 0.0f);
 }
 

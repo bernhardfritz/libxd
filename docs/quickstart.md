@@ -8,7 +8,7 @@
 
 #### Hello rectangle!
 
-* Download [libxd-0.1.0-Linux.tar.gz](https://github.com/bernhardfritz/libxd/releases/download/0.1.0/libxd-0.1.0-Linux.tar.gz)
+* Download the [latest release](https://github.com/bernhardfritz/libxd/releases/latest) for Linux
 * Extract it somewhere you like
 * Create a new file called e.g. `sketch.cpp`
 
@@ -73,7 +73,7 @@ sudo apt-get install xorg-dev
 
 #### Hello rectangle!
 
-* Download [libxd-0.1.0-Darwin.tar.gz](https://github.com/bernhardfritz/libxd/releases/download/0.1.0/libxd-0.1.0-Darwin.tar.gz)
+* Download the [latest release](https://github.com/bernhardfritz/libxd/releases/latest) for macOS (Darwin)
 * Extract it somewhere you like
 * Create a new file called e.g. `sketch.cpp`
 
@@ -126,7 +126,7 @@ xcode-select --install
 
 #### Hello rectangle!
 
-* Download [libxd-0.1.0-win32.zip](https://github.com/bernhardfritz/libxd/releases/download/0.1.0/libxd-0.1.0-win32.zip)
+* Download the [latest release](https://github.com/bernhardfritz/libxd/releases/latest) for Windows (win32)
 * Extract it somewhere you like
 * Create a new file called e.g. `sketch.cpp`
 

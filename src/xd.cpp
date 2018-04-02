@@ -41,7 +41,7 @@ static Shape* ELLIPSE = NULL;
 static Shape* RECT = NULL;
 static Shape* TRIANGLE = NULL;
 
-static stack<Settings*> settingsStack;
+static stack<Settings> settingsStack;
 
 static void error_callback(int error, const char* description) {
 	fprintf(stderr, "Error: %s\n", description);
@@ -123,16 +123,12 @@ void noLoop() {
 	loop_ = false;
 }
 
-Settings* peek() {
-	Settings* settings = settingsStack.top();
-	return settings;
+Settings& peek() {
+	return settingsStack.top();
 }
 
 void pop_() {
-	Settings* settings = settingsStack.top();
 	settingsStack.pop();
-	settings_destroy(settings);
-	settings = NULL;
 }
 
 void pop() {
@@ -142,23 +138,18 @@ void pop() {
 }
 
 void push_() {
-	Settings* settings;
-	settings_new(&settings);
-	settingsStack.push(settings);
+	settingsStack.push(Settings());
 }
 
 void push() {
-	Settings* peekSettings = peek();
-	Settings* pushSettings = (Settings*) malloc(sizeof(Settings));
-	memcpy(pushSettings, peekSettings, sizeof(Settings));
-	settingsStack.push(pushSettings);
+	settingsStack.push(peek());
 }
 
 void redraw() {
 	glUseProgram(program);
 
-	Settings* peekSettings = peek();
-	peekSettings->modelMatrix = mat4(1.0f);
+	Settings& settings = peek();
+	settings.modelMatrix = mat4(1.0f);
 	draw();
 	// depending on the sketch there could be some forgotten items on the stack
 	while(settingsStack.size() > 1) {
@@ -180,93 +171,93 @@ void clear() {
 }
 
 void ellipseMode(DrawMode drawMode) {
-	Settings* settings = peek();
-	settings->ellipseMode = drawMode;
+	Settings& settings = peek();
+	settings.ellipseMode = drawMode;
 }
 
 void fill(vec4 color) {
-	Settings* settings = peek();
-	settings->fillColor = color;
-	settings->doFill = 1;
+	Settings& settings = peek();
+	settings.fillColor = color;
+	settings.doFill = 1;
 }
 
 void noFill() {
-	Settings* settings = peek();
-	settings->doFill = 0;
+	Settings& settings = peek();
+	settings.doFill = 0;
 }
 
 void noStroke() {
-	Settings* settings = peek();
-	settings->doStroke = 0;
+	Settings& settings = peek();
+	settings.doStroke = 0;
 }
 
 void rectMode(DrawMode drawMode) {
-	Settings* settings = peek();
-	settings->rectMode = drawMode;
+	Settings& settings = peek();
+	settings.rectMode = drawMode;
 }
 
 void stroke(vec4 color) {
-	Settings* settings = peek();
-	settings->strokeColor = color;
-	settings->doStroke = 1;
+	Settings& settings = peek();
+	settings.strokeColor = color;
+	settings.doStroke = 1;
 }
 
 void strokeWeight(float weight) {
-	Settings* settings = peek();
-	settings->strokeWeight = weight;
+	Settings& settings = peek();
+	settings.strokeWeight = weight;
 }
 
 void applyMatrix(float a, float b, float c, float d, float e, float f) {
-	Settings* settings = peek();
+	Settings& settings = peek();
 	mat4 m = mat4(
 		a, b, 0, 0,
 		c, d, 0, 0,
 		e, f, 1, 0,
 		0, 0, 0, 1
 	);
-	settings->modelMatrix = m * settings->modelMatrix;
+	settings.modelMatrix = m * settings.modelMatrix;
 }
 
 void resetMatrix() {
-	Settings* settings = peek();
-	settings->modelMatrix = mat4(1.0f);
+	Settings& settings = peek();
+	settings.modelMatrix = mat4(1.0f);
 }
 
 void rotate(float rad) {
-	Settings* settings = peek();
-	settings->modelMatrix = rotate(settings->modelMatrix, rad, vec3(0.0f, 0.0f, 1.0f));
+	Settings& settings = peek();
+	settings.modelMatrix = rotate(settings.modelMatrix, rad, vec3(0.0f, 0.0f, 1.0f));
 }
 
 void scale(float x, float y) {
-	Settings* settings = peek();
-	settings->modelMatrix = scale(settings->modelMatrix, vec3(x, y, 1.0f));
+	Settings& settings = peek();
+	settings.modelMatrix = scale(settings.modelMatrix, vec3(x, y, 1.0f));
 }
 
 void translate(float x, float y) {
-	Settings* settings = peek();
-	settings->modelMatrix = translate(settings->modelMatrix, vec3(x * displayDensity(), y * displayDensity(), 0.0f));
+	Settings& settings = peek();
+	settings.modelMatrix = translate(settings.modelMatrix, vec3(x * displayDensity(), y * displayDensity(), 0.0f));
 }
 
 void updateUniforms() {
-	Settings* settings = peek();
+	Settings& settings = peek();
 
-	mat4x4 MVP = projectionMatrix * viewMatrix * settings->modelMatrix;
+	mat4x4 MVP = projectionMatrix * viewMatrix * settings.modelMatrix;
 	glUniformMatrix4fv(uMVP, 1, GL_FALSE, (const GLfloat*) &MVP[0]);
 
 	vec2 WIN_SCALE = vec2(framebufferWidth / 2, framebufferHeight / 2);
 	glUniform2fv(uWIN_SCALE, 1, (const GLfloat*) &WIN_SCALE[0]);
 
-	glUniform4fv(uFillColor, 1, (const GLfloat*) &settings->fillColor[0]);
-	glUniform4fv(uStrokeColor, 1, (const GLfloat*) &settings->strokeColor[0]);
-	glUniform1iv(uDoFill, 1, (const GLint*) &settings->doFill);
-	glUniform1iv(uDoStroke, 1, (const GLint*) &settings->doStroke);
-	glUniform1fv(uStrokeWeight, 1, (const GLfloat*) &settings->strokeWeight);
+	glUniform4fv(uFillColor, 1, (const GLfloat*) &settings.fillColor[0]);
+	glUniform4fv(uStrokeColor, 1, (const GLfloat*) &settings.strokeColor[0]);
+	glUniform1iv(uDoFill, 1, (const GLint*) &settings.doFill);
+	glUniform1iv(uDoStroke, 1, (const GLint*) &settings.doStroke);
+	glUniform1fv(uStrokeWeight, 1, (const GLfloat*) &settings.strokeWeight);
 }
 
 void ellipse(float a, float b, float c, float d) {
 	push();
-	Settings* settings = peek();
-	switch(settings->ellipseMode) {
+	Settings& settings = peek();
+	switch(settings.ellipseMode) {
 		case CENTER:
 			translate(a, b);
 			scale(c * displayDensity() / framebufferWidth, d * displayDensity() / framebufferHeight);
@@ -315,30 +306,34 @@ void line(float x1, float y1, float x2, float y2) {
 	float angle = atan2f(r.y, r.x);
 
 	push();
-	Settings* settings = peek();
-	settings->fillColor = settings->strokeColor;
-	settings->doFill = settings->doStroke;
-	settings->doStroke = 0;
-	translate(x1 + sinf(angle) * settings->strokeWeight / 2.0f, y1 - cosf(angle) * settings->strokeWeight / 2.0f);
+	Settings& settings = peek();
+	settings.fillColor = settings.strokeColor;
+	settings.doFill = settings.doStroke;
+	settings.doStroke = 0;
+	translate(x1 + sinf(angle) * settings.strokeWeight / 2.0f, y1 - cosf(angle) * settings.strokeWeight / 2.0f);
 	rotate(angle);
-	rect(0.0f, 0.0f, length(r), settings->strokeWeight);
+	rect(0.0f, 0.0f, length(r), settings.strokeWeight);
 	pop();
 }
 
 void point(float x, float y) {
 	push();
-	Settings* settings = peek();
-	settings->fillColor = settings->strokeColor;
-	settings->doFill = settings->doStroke;
-	settings->doStroke = 0;
-	rect(x, y, 1.0f, 1.0f);
+	Settings& settings = peek();
+	settings.fillColor = settings.strokeColor;
+	settings.doFill = settings.doStroke;
+	settings.doStroke = 0;
+	if (settings.strokeWeight < 1.1f) {
+		rect(x, y, 1.0f, 1.0f);
+	} else {
+		ellipse(x + 0.5f, y + 0.5f, settings.strokeWeight, settings.strokeWeight);
+	}
 	pop();
 }
 
 void rect(float a, float b, float c, float d) {
 	push();
-	Settings* settings = peek();
-	switch(settings->rectMode) {
+	Settings& settings = peek();
+	switch(settings.rectMode) {
 		case CENTER:
 			translate(a - c / 2, b - d / 2);
 			scale(c * displayDensity() / framebufferWidth , d * displayDensity() / framebufferHeight);
@@ -393,9 +388,9 @@ void triangle(float x1, float y1, float x2, float y2, float x3, float y3) {
 	mat4 M = B * invA;
 
 	push();
-	Settings* settings = peek();
+	Settings& settings = peek();
 	translate(x1, y1);
-	settings->modelMatrix = settings->modelMatrix * M;
+	settings.modelMatrix = settings.modelMatrix * M;
 	updateUniforms();
 	TRIANGLE->draw();
 	pixels.lazyRead();

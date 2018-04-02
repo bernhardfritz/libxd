@@ -7,18 +7,27 @@
 
 namespace xd {
 
-typedef struct {
-	glm::vec4 fillColor, strokeColor;
-	int doFill, doStroke, doTexture;
+class Settings {
+public:
+    glm::vec4 fillColor, strokeColor;
+	int doFill, doStroke/*, doTexture*/;
 	float strokeWeight;
 	glm::mat4 modelMatrix;
 	DrawMode rectMode;
 	DrawMode ellipseMode;
 
-} Settings;
-
-void settings_new(Settings** out);
-void settings_destroy(Settings* settings);
+    Settings()
+        : fillColor(glm::vec4(1.0f, 1.0f, 1.0f, 1.0f))
+        , strokeColor(glm::vec4(0.0f, 0.0f, 0.0f, 1.0f))
+        , doFill(1)
+        , doStroke(1)
+        /*, doTexture(0)*/
+        , strokeWeight(1.0f)
+        , modelMatrix(glm::mat4(1.0f))
+        , rectMode(CORNER)
+        , ellipseMode(CENTER) {
+    }
+};
 
 } // namespace xd
 

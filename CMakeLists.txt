@@ -20,7 +20,6 @@ set(SOURCES
     src/mouse.cpp
     src/pixels.cpp
     src/rect.cpp
-    src/settings.cpp
     src/shader.cpp
     src/shape.cpp
     src/triangle.cpp
@@ -80,7 +79,7 @@ install(
 set(CPACK_PACKAGE_NAME "libxd")
 set(CPACK_PACKAGE_VENDOR "Bernhard Fritz")
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "libxd - A simple 2D graphics library for C++.")
-set(CPACK_PACKAGE_VERSION "0.1.0")
+set(CPACK_PACKAGE_VERSION "0.1.1")
 
 set(CPACK_MONOLITHIC_INSTALL 1)
 set(CPACK_INCLUDE_TOPLEVEL_DIRECTORY 0)

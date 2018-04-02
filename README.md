@@ -8,11 +8,24 @@
   A simple 2D graphics library for C++.
 </p>
 
+<!-- zip -r9 libxd.zip libxd/ -x "*.git*" */lib/**\* -->
+<!-- cpack -G ZIP -->
+
 # Links
 
 * [Documentation](https://bernhardfritz.github.io/libxd/)
 
 # Changelog
+
+## [0.1.1](https://github.com/bernhardfritz/libxd/releases/tag/0.1.1)
+
+### Changed
+
+* the way memory is allocated for the settings stack
+
+### Fixed
+
+* point() not being affected by strokeWeight()
 
 ## [0.1.0](https://github.com/bernhardfritz/libxd/releases/tag/0.1.0)
 

@@ -9,7 +9,7 @@ Particle::Particle() {
 }
 
 void Particle::applyForce(vec2 force) {
-    acceleration += force / mass;
+    acceleration += force * mass;
 }
 
 void Particle::update() {
@@ -22,8 +22,9 @@ void Particle::update() {
 }
 
 void Particle::draw() {
-    fill(vec4(color, lifespan == -1 ? 1.0f : map(lifespan, 0.0f, 100.0f, 0.0f, 1.0f)));
-    ellipse(position.x, position.y, mass * 3.0f, mass * 3.0f);
+    stroke(vec4(color, lifespan == -1 ? 1.0f : map(lifespan, 0.0f, 100.0f, 0.0f, 1.0f)));
+    strokeWeight(mass * 3.0f);
+    point(position.x, position.y);
 }
 
 bool Particle::isDead() {
