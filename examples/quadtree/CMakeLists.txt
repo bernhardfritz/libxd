@@ -1,6 +1,6 @@
-project(fireworks)
+project(quadtree)
 add_executable(${PROJECT_NAME} sketch.cpp)
-target_sources(${PROJECT_NAME} PUBLIC firework.cpp particle.cpp)
+target_sources(${PROJECT_NAME} PUBLIC xy.cpp quadtree.cpp aabb.cpp)
 target_include_directories(${PROJECT_NAME}
     PRIVATE include
 )

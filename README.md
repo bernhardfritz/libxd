@@ -19,6 +19,10 @@
 
 ## [0.1.1](https://github.com/bernhardfritz/libxd/releases/tag/0.1.1)
 
+### Added
+
+* Quadtree example
+
 ### Changed
 
 * the way memory is allocated for the settings stack
