@@ -1,5 +1,5 @@
 #include <xd/xd.hpp>
-#include <xd/shader.hpp>
+#include <xd/shaderprogram.hpp>
 #include <xd/settings.hpp>
 #include <xd/ellipse.hpp>
 #include <xd/rect.hpp>
@@ -7,6 +7,8 @@
 #include <xd/vs.hpp>
 #include <xd/gs.hpp>
 #include <xd/fs.hpp>
+#include <xd/font_vs.hpp>
+#include <xd/font_fs.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <stack>
 #include <sstream>
@@ -21,27 +23,19 @@ Pixels pixels;
 static GLFWwindow* window;
 static bool loop_ = true;
 
-static GLuint program;
 static int framebufferWidth, framebufferHeight;
 static int displayDensity_;
 static mt19937 rng;
 static mat4 viewMatrix, projectionMatrix;
-
-static GLint uMVP;
-static GLint uWIN_SCALE;
-static GLint uFillColor;
-static GLint uStrokeColor;
-static GLint uDoFill;
-static GLint uDoStroke;
-static GLfloat uStrokeWeight;
-static GLint uTexture;
-static GLint uDoTexture;
 
 static Shape* ELLIPSE = NULL;
 static Shape* RECT = NULL;
 static Shape* TRIANGLE = NULL;
 
 static stack<Settings> settingsStack;
+
+static ShaderProgram* shaderProgram = nullptr;
+static ShaderProgram* fontShaderProgram = nullptr;
 
 static void error_callback(int error, const char* description) {
 	fprintf(stderr, "Error: %s\n", description);
@@ -146,7 +140,7 @@ void push() {
 }
 
 void redraw() {
-	glUseProgram(program);
+	shaderProgram->bind();
 
 	Settings& settings = peek();
 	settings.modelMatrix = mat4(1.0f);
@@ -242,16 +236,16 @@ void updateUniforms() {
 	Settings& settings = peek();
 
 	mat4x4 MVP = projectionMatrix * viewMatrix * settings.modelMatrix;
-	glUniformMatrix4fv(uMVP, 1, GL_FALSE, (const GLfloat*) &MVP[0]);
+	shaderProgram->setUniform("uMVP", MVP);
 
 	vec2 WIN_SCALE = vec2(framebufferWidth / 2, framebufferHeight / 2);
-	glUniform2fv(uWIN_SCALE, 1, (const GLfloat*) &WIN_SCALE[0]);
+	shaderProgram->setUniform("uWIN_SCALE", WIN_SCALE);
 
-	glUniform4fv(uFillColor, 1, (const GLfloat*) &settings.fillColor[0]);
-	glUniform4fv(uStrokeColor, 1, (const GLfloat*) &settings.strokeColor[0]);
-	glUniform1iv(uDoFill, 1, (const GLint*) &settings.doFill);
-	glUniform1iv(uDoStroke, 1, (const GLint*) &settings.doStroke);
-	glUniform1fv(uStrokeWeight, 1, (const GLfloat*) &settings.strokeWeight);
+	shaderProgram->setUniform("uFillColor", settings.fillColor);
+	shaderProgram->setUniform("uStrokeColor", settings.strokeColor);
+	shaderProgram->setUniform("uDoFill", settings.doFill);
+	shaderProgram->setUniform("uDoStroke", settings.doStroke);
+	shaderProgram->setUniform("uStrokeWeight", settings.strokeWeight);
 }
 
 void ellipse(float a, float b, float c, float d) {
@@ -292,11 +286,93 @@ void image(Image* img, float x, float y) {
 	glBindTexture(GL_TEXTURE_2D, img->texture);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glUniform1i(uTexture, 0);
-	glUniform1i(uDoTexture, 1);
+	shaderProgram->setUniform("uTexture", 0);
+	shaderProgram->setUniform("uDoTexture", 1);
 	rect(x, y, 200.0f, 200.0f);
-	glUniform1i(uDoTexture, 0);
+	shaderProgram->setUniform("uDoTexture", 0);
 	glBindTexture(GL_TEXTURE_2D, 0);
+}
+
+void textFont(Font& font) {
+	Settings& settings = peek();
+	settings.font = &font;
+}
+
+void textSize(float theSize) {
+	Settings& settings = peek();
+	settings.textSize = theSize;
+}
+
+void text(const string& str, float x, float y) {
+	Settings& settings = peek();
+	fontShaderProgram->bind();
+	settings.font->texture->bind();
+	fontShaderProgram->setUniform("uTexture", 0);
+	fontShaderProgram->setUniform("uFillColor", settings.fillColor);
+	fontShaderProgram->setUniform("uStrokeColor", settings.strokeColor);
+	fontShaderProgram->setUniform("uDoFill", settings.doFill);
+	fontShaderProgram->setUniform("uDoStroke", settings.doStroke);
+	fontShaderProgram->setUniform("uStrokeWeight", settings.strokeWeight);
+
+	push();
+	translate(x, y);
+	float s = settings.textSize * displayDensity() / settings.font->f.height;
+	scale(s, s);
+
+	x = 0.0f;
+	y = 0.0f;
+
+	for (const char& ch : str) {
+		xd_texture_glyph_t *glyph = 0;
+      	for (int j = 0; j < settings.font->f.glyphs_count; j++) {
+			if (settings.font->f.glyphs[j].codepoint == ch) {
+				glyph = &settings.font->f.glyphs[j];
+				break;
+         	}
+		}
+		if (!glyph) {
+			continue;
+		}
+
+		Shape shape;
+
+		Vertex vertices_arr[] = {
+			{ vec2(0.0f, 0.0f), vec2(glyph->s0, glyph->t0), vec3(1.0f, 0.0f, 0.0f), 1.0f },
+			{ vec2(0.0f, framebufferHeight), vec2(glyph->s0, glyph->t1), vec3(0.0f, 1.0f, 0.0f), 0.0f },
+			{ vec2(framebufferWidth, 0.0f), vec2(glyph->s1, glyph->t0), vec3(0.0f, 0.0f, 1.0f), 0.0f },
+			{ vec2(framebufferWidth, framebufferHeight), vec2(glyph->s1, glyph->t1), vec3(0.0f, 1.0f, 1.0f), 1.0f }
+		};
+		vector<Vertex> vertices(vertices_arr, vertices_arr + sizeof(vertices_arr) / sizeof(vertices_arr[0]));
+
+		unsigned short indices_arr[] = {
+			0, 1, 2,
+			2, 1, 3
+		};
+		vector<unsigned short> indices(indices_arr, indices_arr + sizeof(indices_arr) / sizeof(indices_arr[0]));
+
+		shape.init(vertices, indices);
+
+		push();
+		translate(x + glyph->offset_x, y - glyph->offset_y);
+		scale((float) glyph->width * displayDensity() / framebufferWidth, (float) glyph->height * displayDensity() / framebufferHeight);
+
+		Settings& settings = peek();
+		mat4x4 MVP = projectionMatrix * viewMatrix * settings.modelMatrix;
+		fontShaderProgram->setUniform("uMVP", MVP);
+
+		shape.draw();
+		pop();
+
+		x += glyph->advance_x;
+	}
+
+	pop();
+
+	settings.font->texture->unbind();
+
+	shaderProgram->bind();
+
+	pixels.lazyRead();
 }
 
 void line(float x1, float y1, float x2, float y2) {
@@ -424,21 +500,34 @@ int main(int argc, char* argv[]) {
 	gladLoadGLLoader((GLADloadproc) glfwGetProcAddress);
 	glfwSwapInterval(1);
 
-	GLuint vertex_shader = createVertexShader(&vs);
-	GLuint geometry_shader = createGeometryShader(&gs);
-	GLuint fragment_shader = createFragmentShader(&fs);
+	shaderProgram = new ShaderProgram();
+	shaderProgram->createVertexShader(vs);
+	shaderProgram->createGeometryShader(gs);
+	shaderProgram->createFragmentShader(fs);
+	shaderProgram->link();
 
-	program = createProgram(3, vertex_shader, geometry_shader, fragment_shader);
+	shaderProgram->createUniform("uMVP");
+	shaderProgram->createUniform("uWIN_SCALE");
+	shaderProgram->createUniform("uFillColor");
+	shaderProgram->createUniform("uStrokeColor");
+	shaderProgram->createUniform("uDoFill");
+	shaderProgram->createUniform("uDoStroke");
+	shaderProgram->createUniform("uStrokeWeight");
+	shaderProgram->createUniform("uTexture");
+	shaderProgram->createUniform("uDoTexture");
 
-	uMVP = createUniform(program, "uMVP");
-	uWIN_SCALE = createUniform(program, "uWIN_SCALE");
-	uFillColor = createUniform(program, "uFillColor");
-	uStrokeColor = createUniform(program, "uStrokeColor");
-	uDoFill = createUniform(program, "uDoFill");
-	uDoStroke = createUniform(program, "uDoStroke");
-	uStrokeWeight = createUniform(program, "uStrokeWeight");
-	uTexture = createUniform(program, "uTexture");
-	uDoTexture = createUniform(program, "uDoTexture");
+	fontShaderProgram = new ShaderProgram();
+	fontShaderProgram->createVertexShader(font_vs);
+	fontShaderProgram->createFragmentShader(font_fs);
+	fontShaderProgram->link();
+	
+	fontShaderProgram->createUniform("uMVP");
+	fontShaderProgram->createUniform("uTexture");
+	fontShaderProgram->createUniform("uFillColor");
+	fontShaderProgram->createUniform("uStrokeColor");
+	fontShaderProgram->createUniform("uDoFill");
+	fontShaderProgram->createUniform("uDoStroke");
+	fontShaderProgram->createUniform("uStrokeWeight");
 
 	vec3 eye = vec3(0.0f, 0.0f, 0.0f);
 	vec3 center = vec3(0.0f, 0.0f, -1.0f);
@@ -447,9 +536,12 @@ int main(int argc, char* argv[]) {
 
 	randomSeed(random_device()());
 
+	// TODO
+
 	push_();
 	glfwGetFramebufferSize(window, &framebufferWidth, &framebufferHeight);
 	displayDensity_ = framebufferWidth / width;
+	opensans.init();
 	setup();
 	glfwGetFramebufferSize(window, &framebufferWidth, &framebufferHeight);
 	updateFramebufferSize(framebufferWidth, framebufferHeight);
@@ -485,7 +577,8 @@ int main(int argc, char* argv[]) {
 	pop_();
 
 	destroyShapes();
-	destroyProgram(program);
+	delete shaderProgram;
+	delete fontShaderProgram;
     glfwDestroyWindow(window);
     glfwTerminate();
     exit(EXIT_SUCCESS);

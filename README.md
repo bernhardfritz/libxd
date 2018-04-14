@@ -17,6 +17,16 @@
 
 # Changelog
 
+## [0.2.0](https://github.com/bernhardfritz/libxd/releases/tag/0.2.0)
+
+### Added
+
+* support for text rendering
+
+### Changed
+
+* the way shaders are handled
+
 ## [0.1.1](https://github.com/bernhardfritz/libxd/releases/tag/0.1.1)
 
 ### Added

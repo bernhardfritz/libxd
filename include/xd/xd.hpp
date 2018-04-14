@@ -7,6 +7,7 @@
 #include "drawmode.hpp"
 #include "mouse.hpp"
 #include "keyboard.hpp"
+#include "font.hpp"
 #include <glm/glm.hpp>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -50,6 +51,10 @@ void translate(float x, float y);
 
 void ellipse(float x, float y, float w, float h);
 void image(Image* img, float x, float y);
+void loadFont(Font& font);
+void textFont(Font& font);
+void textSize(float theSize);
+void text(const string& str, float x, float y);
 void line(float x1, float y1, float x2, float y2);
 void point(float x, float y);
 void rect(float x, float y, float w, float h);

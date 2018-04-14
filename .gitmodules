@@ -4,3 +4,6 @@
 [submodule "lib/glm"]
 	path = lib/glm
 	url = https://github.com/g-truc/glm.git
+[submodule "lib/freetype-gl"]
+	path = lib/freetype-gl
+	url = https://github.com/rougier/freetype-gl.git

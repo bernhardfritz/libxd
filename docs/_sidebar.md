@@ -15,10 +15,12 @@
 	- [Shape](shape.md)
 	- [Structure](structure.md)
 	- [Transform](transform.md)
+	- [Typography](typography.md)
 
 - Examples
 	- [Fireworks](examples/fireworks.md)
 	- [Keyboard interaction](examples/keyboard.md)
 	- [Mouse interaction](examples/mouse.md)
+	- [Text](examples/text.md)
 	- [Quadtree](examples/quadtree.md)
 	- [Space Invaders](examples/spaceinvaders.md)

@@ -2,6 +2,8 @@
 #define SETTINGS_HPP
 
 #include "drawmode.hpp"
+#include <xd/font.hpp>
+#include <xd/opensans.hpp>
 #include <glm/vec3.hpp>
 #include <glm/mat4x4.hpp>
 
@@ -15,6 +17,8 @@ public:
 	glm::mat4 modelMatrix;
 	DrawMode rectMode;
 	DrawMode ellipseMode;
+    Font* font;
+    float textSize;
 
     Settings()
         : fillColor(glm::vec4(1.0f, 1.0f, 1.0f, 1.0f))
@@ -25,7 +29,9 @@ public:
         , strokeWeight(1.0f)
         , modelMatrix(glm::mat4(1.0f))
         , rectMode(CORNER)
-        , ellipseMode(CENTER) {
+        , ellipseMode(CENTER)
+        , font(&opensans)
+        , textSize(12.0f) {
     }
 };
 

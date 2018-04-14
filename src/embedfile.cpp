@@ -24,7 +24,8 @@ void out(const char* fmt, ...) {
 
 void write_file_header(const char* include_guard) {
     out("#ifndef %s\n", include_guard);
-    out("#define %s\n", include_guard);
+    out("#define %s\n\n", include_guard);
+    out("#include <string>\n");
 }
 
 void write_file_footer(const char* include_guard) {
@@ -47,7 +48,7 @@ void make_c_string(string & in) {
 }
 
 void write_var_header() {
-    out("const char* %s =\n", var_name.c_str());
+    out("const std::string %s =\n", var_name.c_str());
 }
 
 void write_var_footer() {
