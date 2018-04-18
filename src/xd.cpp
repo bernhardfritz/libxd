@@ -316,7 +316,7 @@ void text(const string& str, float x, float y) {
 
 	push();
 	translate(x, y);
-	float s = settings.textSize * displayDensity() / settings.font->f.height;
+	float s = (2.0f * settings.textSize) / (settings.font->f.height * displayDensity());
 	scale(s, s);
 
 	x = 0.0f;
@@ -354,7 +354,7 @@ void text(const string& str, float x, float y) {
 
 		push();
 		translate(x + glyph->offset_x, y - glyph->offset_y);
-		scale((float) glyph->width * displayDensity() / framebufferWidth, (float) glyph->height * displayDensity() / framebufferHeight);
+		scale((float) glyph->width / width, (float) glyph->height / height);
 
 		Settings& settings = peek();
 		mat4x4 MVP = projectionMatrix * viewMatrix * settings.modelMatrix;

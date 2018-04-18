@@ -17,6 +17,12 @@
 
 # Changelog
 
+## [0.2.1](https://github.com/bernhardfritz/libxd/releases/tag/0.2.1)
+
+### Fixed
+
+* display density to be considered when rendering text
+
 ## [0.2.0](https://github.com/bernhardfritz/libxd/releases/tag/0.2.0)
 
 ### Added
