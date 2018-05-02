@@ -3,6 +3,7 @@
 
 #include <glad/glad.h>
 #include <glm/vec2.hpp>
+#include <glm/vec3.hpp>
 #include <glm/vec4.hpp>
 #include <glm/mat4x4.hpp>
 #include <map>
@@ -12,6 +13,8 @@ namespace xd {
 
 class ShaderProgram {
 private:
+    static ShaderProgram* boundShaderProgram;
+
     GLuint program;
     GLuint vertexShader;
     GLuint geometryShader;
@@ -23,6 +26,7 @@ private:
 public:
     ShaderProgram();
     ~ShaderProgram();
+    static ShaderProgram* getBoundShaderProgram();
     void createVertexShader(const std::string& shaderCode);
     void createGeometryShader(const std::string& shaderCode);
     void createFragmentShader(const std::string& shaderCode);
@@ -30,6 +34,7 @@ public:
     void setUniform(const std::string& uniformName, const int& i);
     void setUniform(const std::string& uniformName, const float& f);
     void setUniform(const std::string& uniformName, const glm::vec2& v);
+    void setUniform(const std::string& uniformName, const glm::vec3& v);
     void setUniform(const std::string& uniformName, const glm::vec4& v);
     void setUniform(const std::string& uniformName, const glm::mat4x4& m);
     void link();

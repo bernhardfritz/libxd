@@ -19,8 +19,12 @@
 
 - Examples
 	- [Fireworks](examples/fireworks.md)
+	- [Image](examples/image.md)
 	- [Keyboard interaction](examples/keyboard.md)
+	- [Lights](examples/lights.md)
 	- [Mouse interaction](examples/mouse.md)
+	- [Quickstart](examples/quickstart.md)
+	- [Renderpasses](examples/renderpasses.md)
 	- [Text](examples/text.md)
 	- [Quadtree](examples/quadtree.md)
 	- [Space Invaders](examples/spaceinvaders.md)

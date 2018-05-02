@@ -5,6 +5,8 @@ using namespace glm;
 
 namespace xd {
 
+ShaderProgram* ShaderProgram::boundShaderProgram = nullptr;
+
 ShaderProgram::ShaderProgram() {
     program = glCreateProgram();
 }
@@ -14,6 +16,10 @@ ShaderProgram::~ShaderProgram() {
     if (program != 0) {
         glDeleteProgram(program);
     }
+}
+
+ShaderProgram* ShaderProgram::getBoundShaderProgram() {
+    return boundShaderProgram;
 }
 
 void validateShader(GLuint& shader) {
@@ -68,6 +74,10 @@ void ShaderProgram::setUniform(const string& uniformName, const vec2& v) {
     glUniform2fv(uniforms[uniformName], 1, (const GLfloat*) &v[0]);
 }
 
+void ShaderProgram::setUniform(const string& uniformName, const vec3& v) {
+    glUniform3fv(uniforms[uniformName], 1, (const GLfloat*) &v[0]);
+}
+
 void ShaderProgram::setUniform(const string& uniformName, const vec4& v) {
     glUniform4fv(uniforms[uniformName], 1, (const GLfloat*) &v[0]);
 }
@@ -94,10 +104,12 @@ void ShaderProgram::link() {
 
 void ShaderProgram::bind() {
     glUseProgram(program);
+    boundShaderProgram = this;
 }
 
 void ShaderProgram::unbind() {
     glUseProgram(0);
+    boundShaderProgram = nullptr;
 }
 
 } // namespace xd

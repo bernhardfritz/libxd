@@ -7,9 +7,9 @@ namespace xd {
 
 Triangle::Triangle(int framebufferWidth, int framebufferHeight) {
 	Vertex vertices_arr[] = {
-		{ vec2(0.0f, 0.0f), vec2(0.0f, 1.0f), vec3(1.0f, 0.0f, 0.0f), 0.0f },
-		{ vec2(0.0f, framebufferHeight), vec2(0.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f), 0.0f },
-		{ vec2(framebufferWidth, 0.0f), vec2(1.0f, 1.0f), vec3(0.0f, 0.0f, 1.0f), 0.0f }
+		{ vec2(0.0f, 0.0f), vec2(0.0f, 1.0f), 0.0f },
+		{ vec2(0.0f, framebufferHeight), vec2(0.0f, 0.0f), 0.0f },
+		{ vec2(framebufferWidth, 0.0f), vec2(1.0f, 1.0f), 0.0f }
 	};
 
 	unsigned short indices_arr[] = {

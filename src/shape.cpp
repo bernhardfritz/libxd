@@ -31,7 +31,7 @@ void Shape::init(const vector<Vertex>& vertices, const vector<unsigned short>& i
 		2,
 		GL_FLOAT,
 		GL_FALSE,
-		sizeof(float) * 8,
+		sizeof(float) * 5,
 		(void*) 0
 	);
 
@@ -42,30 +42,19 @@ void Shape::init(const vector<Vertex>& vertices, const vector<unsigned short>& i
 		2,
 		GL_FLOAT,
 		GL_FALSE,
-		sizeof(float) * 8,
+		sizeof(float) * 5,
 		(void*) (sizeof(float) * 2)
 	);
 
-	GLuint aColor = 2;
-	glEnableVertexAttribArray(aColor);
-	glVertexAttribPointer(
-		aColor,
-		3,
-		GL_FLOAT,
-		GL_FALSE,
-		sizeof(float) * 8,
-		(void*) (sizeof(float) * 4)
-	);
-
-	GLuint aExcludeEdge = 3;
+	GLuint aExcludeEdge = 2;
 	glEnableVertexAttribArray(aExcludeEdge);
 	glVertexAttribPointer(
 		aExcludeEdge,
 		1,
 		GL_FLOAT,
 		GL_FALSE,
-		sizeof(float) * 8,
-		(void*) (sizeof(float) * 7)
+		sizeof(float) * 5,
+		(void*) (sizeof(float) * 4)
 	);
 
 	glBindVertexArray(0);

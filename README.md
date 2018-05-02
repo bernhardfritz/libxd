@@ -17,6 +17,24 @@
 
 # Changelog
 
+## [0.3.0](https://github.com/bernhardfritz/libxd/releases/tag/0.3.0)
+
+### Added
+
+* support for custom shaders and renderpasses
+* several new examples, showcasing the capabilities of renderpasses
+
+### Changed
+
+* the way how stuff is rendered, allowing deferred rendering techniques
+* the attributes of Shape, i.e. removal of obsolete color attribute
+* the function signature of image()
+* the default shader, i.e. refactored the image() related glsl code into a seperate shader
+
+### Fixed
+
+* default background color not being applied
+
 ## [0.2.1](https://github.com/bernhardfritz/libxd/releases/tag/0.2.1)
 
 ### Fixed
@@ -76,7 +94,6 @@
 
 * the documentation.
 * some cmake build scripts.
-
 
 ## 0.0.2
 

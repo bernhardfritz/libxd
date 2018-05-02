@@ -26,8 +26,10 @@ set(SOURCES
     src/keyboard.cpp
     src/mouse.cpp
     src/opensans.cpp
+    src/passthrough.cpp
     src/pixels.cpp
     src/rect.cpp
+    src/renderpass.cpp
     src/shaderprogram.cpp
     src/shape.cpp
     src/texture.cpp
@@ -39,6 +41,8 @@ set(SOURCES
     include/xd/fs.hpp
     include/xd/font_vs.hpp
     include/xd/font_fs.hpp
+    include/xd/image_vs.hpp
+    include/xd/image_fs.hpp
     include/xd/OpenSans-Regular.hpp
 )
 set_source_files_properties(src/opensans.cpp PROPERTIES COMPILE_FLAGS -Wno-narrowing)
@@ -86,6 +90,18 @@ add_custom_command(
     DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/resources/font_fs.glsl
 )
 
+add_custom_command(
+    OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/include/xd/image_vs.hpp
+    COMMAND embedfile image_vs ${CMAKE_CURRENT_SOURCE_DIR}/resources/image_vs.glsl ${CMAKE_CURRENT_SOURCE_DIR}/include/xd/image_vs.hpp
+    DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/resources/image_vs.glsl
+)
+
+add_custom_command(
+    OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/include/xd/image_fs.hpp
+    COMMAND embedfile image_fs ${CMAKE_CURRENT_SOURCE_DIR}/resources/image_fs.glsl ${CMAKE_CURRENT_SOURCE_DIR}/include/xd/image_fs.hpp
+    DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/resources/image_fs.glsl
+)
+
 # add_custom_command(
 #     OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/include/xd/OpenSans-Regular.hpp
 #     COMMAND lib/freetype-gl/makefont --font ${CMAKE_CURRENT_SOURCE_DIR}/resources/Open_Sans/OpenSans-Regular.ttf --header ${CMAKE_CURRENT_SOURCE_DIR}/include/xd/OpenSans-Regular.hpp --size 72 --rendermode "sdf" --texture 512x512 --variable OpenSans_Regular
@@ -93,6 +109,13 @@ add_custom_command(
 # )
 
 add_subdirectory(examples)
+
+# the .glsl shaders would not have to be copied over to the build directory since they are already embedded in the header files
+# this is currently only relevant for the logo.png resource which is used in the image example and might be handled differently in future
+file (GLOB_RECURSE RESOURCES resources/*.*)
+foreach(RESOURCE ${RESOURCES})
+configure_file(${RESOURCE} ${CMAKE_CURRENT_BINARY_DIR} COPYONLY)
+endforeach(RESOURCE ${RESOURCES})
 
 install(
     TARGETS ${PROJECT_NAME} glad
@@ -110,7 +133,7 @@ install(
 set(CPACK_PACKAGE_NAME "libxd")
 set(CPACK_PACKAGE_VENDOR "Bernhard Fritz")
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "libxd - A simple 2D graphics library for C++.")
-set(CPACK_PACKAGE_VERSION "0.2.1")
+set(CPACK_PACKAGE_VERSION "0.3.0")
 
 set(CPACK_MONOLITHIC_INSTALL 1)
 set(CPACK_INCLUDE_TOPLEVEL_DIRECTORY 0)

@@ -8,6 +8,7 @@
 #include "mouse.hpp"
 #include "keyboard.hpp"
 #include "font.hpp"
+#include "passthrough.hpp"
 #include <glm/glm.hpp>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -17,8 +18,9 @@ using namespace glm;
 
 namespace xd {
 
-extern int width, height;
+extern int width, height, frameCount;
 extern Pixels pixels;
+extern Passthrough* passthrough;
 
 int displayDensity();
 float millis();
@@ -50,7 +52,7 @@ void scale(float x, float y);
 void translate(float x, float y);
 
 void ellipse(float x, float y, float w, float h);
-void image(Image* img, float x, float y);
+void image(Image* img, float x, float y, float w, float h);
 void loadFont(Font& font);
 void textFont(Font& font);
 void textSize(float theSize);
@@ -59,6 +61,8 @@ void line(float x1, float y1, float x2, float y2);
 void point(float x, float y);
 void rect(float x, float y, float w, float h);
 void triangle(float x1, float y1, float x2, float y2, float x3, float y3);
+
+void renderPass(RenderPass* thePass);
 
 } // namespace xd
 

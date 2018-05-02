@@ -22,7 +22,7 @@ void Particle::update() {
 }
 
 void Particle::draw() {
-    stroke(vec4(color, lifespan == -1 ? 1.0f : map(lifespan, 0.0f, 100.0f, 0.0f, 1.0f)));
+    stroke(vec4(color, lifespan == -1 ? 1.0f : xd::map(lifespan, 0.0f, 100.0f, 0.0f, 1.0f))); // TODO namespace collision
     strokeWeight(mass * 3.0f);
     point(position.x, position.y);
 }

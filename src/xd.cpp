@@ -9,6 +9,9 @@
 #include <xd/fs.hpp>
 #include <xd/font_vs.hpp>
 #include <xd/font_fs.hpp>
+#include <xd/image_vs.hpp>
+#include <xd/image_fs.hpp>
+#include <xd/passthrough.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <stack>
 #include <sstream>
@@ -17,8 +20,9 @@
 
 namespace xd {
 
-int width = 100, height = 100;
+int width = 100, height = 100, frameCount = 0;
 Pixels pixels;
+Passthrough* passthrough = nullptr;
 
 static GLFWwindow* window;
 static bool loop_ = true;
@@ -36,6 +40,9 @@ static stack<Settings> settingsStack;
 
 static ShaderProgram* shaderProgram = nullptr;
 static ShaderProgram* fontShaderProgram = nullptr;
+static ShaderProgram* imageShaderProgram = nullptr;
+
+static RenderPass* renderPass_ = nullptr;
 
 static void error_callback(int error, const char* description) {
 	fprintf(stderr, "Error: %s\n", description);
@@ -76,8 +83,11 @@ static void updateFramebufferSize(int framebufferWidth_, int framebufferHeight_)
 
 	glViewport(0, 0, framebufferWidth, framebufferHeight);
 
-	background(vec4(vec3(0.3f), 1.0f));
 	pixels.lazyResize();
+
+	for (RenderPass*& instance : RenderPass::instances) {
+		instance->initFramebufferTexture();
+	}
 	
 	redraw();
 }
@@ -140,14 +150,28 @@ void push() {
 }
 
 void redraw() {
+	if (passthrough) {
+		passthrough->begin();
+	}
+
 	shaderProgram->bind();
 
 	Settings& settings = peek();
 	settings.modelMatrix = mat4(1.0f);
 	draw();
+	frameCount++;
 	// depending on the sketch there could be some forgotten items on the stack
 	while(settingsStack.size() > 1) {
 		pop();
+	}
+
+	if (passthrough) {
+		passthrough->end();
+	}
+
+	settings.modelMatrix = mat4(1.0f);
+	if (renderPass_) {
+		renderPass_->render(true);
 	}
 	glfwSwapBuffers(window);
 }
@@ -233,19 +257,26 @@ void translate(float x, float y) {
 }
 
 void updateUniforms() {
+	ShaderProgram* boundShaderProgram = ShaderProgram::getBoundShaderProgram();
+	if (boundShaderProgram == nullptr) {
+		return;
+	}
+
 	Settings& settings = peek();
 
 	mat4x4 MVP = projectionMatrix * viewMatrix * settings.modelMatrix;
-	shaderProgram->setUniform("uMVP", MVP);
+	boundShaderProgram->setUniform("uMVP", MVP);
 
-	vec2 WIN_SCALE = vec2(framebufferWidth / 2, framebufferHeight / 2);
-	shaderProgram->setUniform("uWIN_SCALE", WIN_SCALE);
+	if (boundShaderProgram == shaderProgram) {
+		vec2 WIN_SCALE = vec2(framebufferWidth / 2, framebufferHeight / 2);
+		boundShaderProgram->setUniform("uWIN_SCALE", WIN_SCALE);
 
-	shaderProgram->setUniform("uFillColor", settings.fillColor);
-	shaderProgram->setUniform("uStrokeColor", settings.strokeColor);
-	shaderProgram->setUniform("uDoFill", settings.doFill);
-	shaderProgram->setUniform("uDoStroke", settings.doStroke);
-	shaderProgram->setUniform("uStrokeWeight", settings.strokeWeight);
+		boundShaderProgram->setUniform("uFillColor", settings.fillColor);
+		boundShaderProgram->setUniform("uStrokeColor", settings.strokeColor);
+		boundShaderProgram->setUniform("uDoFill", settings.doFill);
+		boundShaderProgram->setUniform("uDoStroke", settings.doStroke);
+		boundShaderProgram->setUniform("uStrokeWeight", settings.strokeWeight);
+	}
 }
 
 void ellipse(float a, float b, float c, float d) {
@@ -281,16 +312,16 @@ void ellipse(float a, float b, float c, float d) {
 	pop();
 }
 
-void image(Image* img, float x, float y) {
+void image(Image* img, float x, float y, float w, float h) {
+	imageShaderProgram->bind();
 	img->pixels.uploadIfNecessary();
 	glBindTexture(GL_TEXTURE_2D, img->texture);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	shaderProgram->setUniform("uTexture", 0);
-	shaderProgram->setUniform("uDoTexture", 1);
-	rect(x, y, 200.0f, 200.0f);
-	shaderProgram->setUniform("uDoTexture", 0);
+	imageShaderProgram->setUniform("uTexture", 0);
+	rect(x, y, w, h);
 	glBindTexture(GL_TEXTURE_2D, 0);
+	shaderProgram->bind();
 }
 
 void textFont(Font& font) {
@@ -337,10 +368,10 @@ void text(const string& str, float x, float y) {
 		Shape shape;
 
 		Vertex vertices_arr[] = {
-			{ vec2(0.0f, 0.0f), vec2(glyph->s0, glyph->t0), vec3(1.0f, 0.0f, 0.0f), 1.0f },
-			{ vec2(0.0f, framebufferHeight), vec2(glyph->s0, glyph->t1), vec3(0.0f, 1.0f, 0.0f), 0.0f },
-			{ vec2(framebufferWidth, 0.0f), vec2(glyph->s1, glyph->t0), vec3(0.0f, 0.0f, 1.0f), 0.0f },
-			{ vec2(framebufferWidth, framebufferHeight), vec2(glyph->s1, glyph->t1), vec3(0.0f, 1.0f, 1.0f), 1.0f }
+			{ vec2(0.0f, 0.0f), vec2(glyph->s0, glyph->t0), 1.0f },
+			{ vec2(0.0f, framebufferHeight), vec2(glyph->s0, glyph->t1), 0.0f },
+			{ vec2(framebufferWidth, 0.0f), vec2(glyph->s1, glyph->t0), 0.0f },
+			{ vec2(framebufferWidth, framebufferHeight), vec2(glyph->s1, glyph->t1), 1.0f }
 		};
 		vector<Vertex> vertices(vertices_arr, vertices_arr + sizeof(vertices_arr) / sizeof(vertices_arr[0]));
 
@@ -473,6 +504,10 @@ void triangle(float x1, float y1, float x2, float y2, float x3, float y3) {
 	pop();
 }
 
+void renderPass(RenderPass* thePass) {
+	renderPass_ = thePass;
+}
+
 } // namespace xd
 
 using namespace xd;
@@ -513,8 +548,6 @@ int main(int argc, char* argv[]) {
 	shaderProgram->createUniform("uDoFill");
 	shaderProgram->createUniform("uDoStroke");
 	shaderProgram->createUniform("uStrokeWeight");
-	shaderProgram->createUniform("uTexture");
-	shaderProgram->createUniform("uDoTexture");
 
 	fontShaderProgram = new ShaderProgram();
 	fontShaderProgram->createVertexShader(font_vs);
@@ -529,6 +562,14 @@ int main(int argc, char* argv[]) {
 	fontShaderProgram->createUniform("uDoStroke");
 	fontShaderProgram->createUniform("uStrokeWeight");
 
+	imageShaderProgram = new ShaderProgram();
+	imageShaderProgram->createVertexShader(image_vs);
+	imageShaderProgram->createFragmentShader(image_fs);
+	imageShaderProgram->link();
+
+	imageShaderProgram->createUniform("uMVP");
+	imageShaderProgram->createUniform("uTexture");
+
 	vec3 eye = vec3(0.0f, 0.0f, 0.0f);
 	vec3 center = vec3(0.0f, 0.0f, -1.0f);
 	vec3 up = vec3(0.0f, 1.0f, 0.0f);
@@ -536,12 +577,12 @@ int main(int argc, char* argv[]) {
 
 	randomSeed(random_device()());
 
-	// TODO
-
 	push_();
 	glfwGetFramebufferSize(window, &framebufferWidth, &framebufferHeight);
 	displayDensity_ = framebufferWidth / width;
 	opensans.init();
+	passthrough = new Passthrough();
+	renderPass(passthrough);
 	setup();
 	glfwGetFramebufferSize(window, &framebufferWidth, &framebufferHeight);
 	updateFramebufferSize(framebufferWidth, framebufferHeight);
@@ -550,15 +591,15 @@ int main(int argc, char* argv[]) {
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
 	double previousTime = glfwGetTime();
-	int frameCount = 0;
+	int fps = 0;
 	while (!glfwWindowShouldClose(window)) {
 		double currentTime = glfwGetTime();
-		frameCount++;
+		fps++;
 		if (currentTime - previousTime >= 1.0) {
 			ostringstream s;
-			s << "xD @ " << frameCount << " fps";
+			s << "xD @ " << fps << " fps";
 			glfwSetWindowTitle(window, s.str().c_str());
-			frameCount = 0;
+			fps = 0;
 			previousTime = currentTime;
 		}
 
@@ -579,6 +620,8 @@ int main(int argc, char* argv[]) {
 	destroyShapes();
 	delete shaderProgram;
 	delete fontShaderProgram;
+	delete imageShaderProgram;
+	delete passthrough;
     glfwDestroyWindow(window);
     glfwTerminate();
     exit(EXIT_SUCCESS);

@@ -9,7 +9,6 @@ namespace xd {
 typedef struct {
 	glm::vec2 xy;
 	glm::vec2 uv;
-	glm::vec3 rgb;
 	float excludeEdge;
 } Vertex;
 

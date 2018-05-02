@@ -22,7 +22,6 @@ Ellipse::Ellipse(int framebufferWidth, int framebufferHeight) {
 		float s = sinf(a);
 		vertex->xy = vec2(c * framebufferWidth / 2.0f, s * framebufferHeight / 2.0f);
 		vertex->uv = vec2(c, s);
-		vertex->rgb = vec3(0.0f, 0.0f, 0.0f);
 		vertex->excludeEdge = 1.0f;
 		indices_arr[i * 3 + 0] = (i + 0) % ELLIPSE_SEGMENTS;
 		indices_arr[i * 3 + 1] = (i + 1) % ELLIPSE_SEGMENTS;
@@ -32,7 +31,6 @@ Ellipse::Ellipse(int framebufferWidth, int framebufferHeight) {
 	Vertex* vertex = vertices_arr + ELLIPSE_SEGMENTS;
 	vertex->xy = vec2(0.0f, 0.0f);
 	vertex->uv = vec2(0.5f, 0.5f);
-	vertex->rgb = vec3(0.0f, 0.0f, 0.0f);
 	vertex->excludeEdge = 0.0f;
 
 	vector<Vertex> vertices(vertices_arr, vertices_arr + sizeof(vertices_arr) / sizeof(vertices_arr[0]));

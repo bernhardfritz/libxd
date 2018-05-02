@@ -7,12 +7,10 @@ layout(triangle_strip, max_vertices=3) out;
 
 in Vertex {
 	vec2 uv;
-	vec3 color;
 	float excludeEdge;
 } vertex[];
 
 out vec2 vUV;
-out vec3 vColor;
 noperspective out vec3 vDist;
 
 const float MEW = 100.0; // max edge width
@@ -33,7 +31,6 @@ void main() {
 
 	for (int i = 0; i < gl_in.length(); i++) {
 		vUV = vertex[i].uv;
-		vColor = vertex[i].color;
 		vDist = vec3(0.0);
 		vDist[i] = area2 / length(e[i]);
 		vDist[(i + 1) % gl_in.length()] = vertex[(i + 1) % gl_in.length()].excludeEdge * MEW;

@@ -4,10 +4,9 @@
 #include <glad/glad.h>
 
 class Texture {
-private:
+public:
     GLuint texture;
 
-public:
     Texture(GLsizei width, GLsizei height, GLenum format, const GLvoid* data);
     ~Texture();
 
