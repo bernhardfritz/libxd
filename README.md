@@ -17,7 +17,7 @@
 
 # Changelog
 
-## [0.3.1](https://github.com/bernhardfritz/libxd/releases/tag/0.3.0)
+## [0.3.1](https://github.com/bernhardfritz/libxd/releases/tag/0.3.1)
 
 ### Added
 
