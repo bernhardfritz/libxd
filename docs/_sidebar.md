@@ -27,5 +27,6 @@
 	- [Renderpasses](examples/renderpasses.md)
 	- [Text](examples/text.md)
 	- [Quadtree](examples/quadtree.md)
+	- [2DWater](examples/2dwater.md)
 	- [Space Invaders](examples/spaceinvaders.md)
 	- [Spritesheets](examples/spritesheets.md)
