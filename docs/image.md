@@ -28,7 +28,7 @@ The basic version of `image()` uses 5 parameters and behaves similarly to [rect(
 
 The more advanced version of `image()` uses 9 parameters and should be used whenever you only want to display a subimage instead of the whole image. When using this function, think of the terms "destination rectangle" (which corresponds to "dx", "dy", etc.) and "source image" (which corresponds to "sx", "sy", etc.) and remember this illustration:
 
-![drawImage](../_media/drawImage.png)
+![drawImage](_media/drawImage.png)
 
 _The illustration above has been shamelessly repurposed from the [p5.js image reference](https://p5js.org/reference/#/p5/image)._
 
