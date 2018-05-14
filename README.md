@@ -17,53 +17,66 @@
 
 # Changelog
 
+## [0.3.1](https://github.com/bernhardfritz/libxd/releases/tag/0.3.0)
+
+### Added
+
+* overloaded function `image()` that allows to display subimages which could be very useful for spritesheets and animations.
+* the function `imageMode()`.
+* spritesheet example.
+
+### Changed
+
+* the function `loadImage()` to return `nullptr` and print an error message if anything went wrong loading the image.
+* the documentation by overhauling the section "Outline" and "Image".
+
 ## [0.3.0](https://github.com/bernhardfritz/libxd/releases/tag/0.3.0)
 
 ### Added
 
-* support for custom shaders and renderpasses
-* several new examples, showcasing the capabilities of renderpasses
+* support for custom shaders and renderpasses.
+* several new examples, showcasing the capabilities of renderpasses.
 
 ### Changed
 
-* the way how stuff is rendered, allowing deferred rendering techniques
-* the attributes of Shape, i.e. removal of obsolete color attribute
-* the function signature of image()
-* the default shader, i.e. refactored the image() related glsl code into a seperate shader
+* the way how stuff is rendered, allowing deferred rendering techniques.
+* the attributes of Shape, i.e. removal of obsolete color attribute.
+* the function signature of `image()`.
+* the default shader, i.e. refactored the `image()` related glsl code into a seperate shader.
 
 ### Fixed
 
-* default background color not being applied
+* default background color not being applied.
 
 ## [0.2.1](https://github.com/bernhardfritz/libxd/releases/tag/0.2.1)
 
 ### Fixed
 
-* display density to be considered when rendering text
+* display density to be considered when rendering text.
 
 ## [0.2.0](https://github.com/bernhardfritz/libxd/releases/tag/0.2.0)
 
 ### Added
 
-* support for text rendering
+* support for text rendering.
 
 ### Changed
 
-* the way shaders are handled
+* the way shaders are handled.
 
 ## [0.1.1](https://github.com/bernhardfritz/libxd/releases/tag/0.1.1)
 
 ### Added
 
-* Quadtree example
+* Quadtree example.
 
 ### Changed
 
-* the way memory is allocated for the settings stack
+* the way memory is allocated for the settings stack.
 
 ### Fixed
 
-* point() not being affected by strokeWeight()
+* `point()` not being affected by `strokeWeight()`.
 
 ## [0.1.0](https://github.com/bernhardfritz/libxd/releases/tag/0.1.0)
 

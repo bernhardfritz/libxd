@@ -1,5 +1,4 @@
 #include <xd/ellipse.hpp>
-#include <xd/utils.hpp>
 #include <xd/constants.hpp>
 #include <glm/trigonometric.hpp>
 

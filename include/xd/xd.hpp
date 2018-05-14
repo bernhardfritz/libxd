@@ -2,8 +2,9 @@
 #define XD_HPP
 
 #include "constants.hpp"
-#include "pixels.hpp"
 #include "utils.hpp"
+#include "pixels.hpp"
+#include "image.hpp"
 #include "drawmode.hpp"
 #include "mouse.hpp"
 #include "keyboard.hpp"
@@ -23,6 +24,7 @@ extern Pixels pixels;
 extern Passthrough* passthrough;
 
 int displayDensity();
+Image* loadImage(const string& filename);
 float millis();
 void size(int w, int h);
 
@@ -39,11 +41,14 @@ void background(vec4 color);
 void clear();
 void ellipseMode(DrawMode);
 void fill(vec4 color);
+void imageMode(DrawMode);
 void noFill();
 void noStroke();
 void rectMode(DrawMode);
 void stroke(vec4 color);
 void strokeWeight(float weight);
+void textFont(Font& font);
+void textSize(float theSize);
 
 void applyMatrix(float a, float b, float c, float d, float e, float f);
 void resetMatrix();
@@ -52,14 +57,12 @@ void scale(float x, float y);
 void translate(float x, float y);
 
 void ellipse(float x, float y, float w, float h);
+void image(Image* img, float dx, float dy, float dWidth, float dHeight, float sx, float sy, float sWidth, float sHeight);
 void image(Image* img, float x, float y, float w, float h);
-void loadFont(Font& font);
-void textFont(Font& font);
-void textSize(float theSize);
 void text(const string& str, float x, float y);
 void line(float x1, float y1, float x2, float y2);
 void point(float x, float y);
-void rect(float x, float y, float w, float h);
+void rect(float x, float y, float w, float h, bool useImageMode = false);
 void triangle(float x1, float y1, float x2, float y2, float x3, float y3);
 
 void renderPass(RenderPass* thePass);

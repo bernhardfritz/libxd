@@ -1,13 +1,127 @@
 # Outline
 
-| [Color](color.md)                   | [Constants](constants.md)                               | [Events](events.md)                        |  [Image](image.md)                | [IO](io.md)              | [Math](math.md)                    | [Shape](shape.md)                     | [Structure](structure.md)                   | [Transform](transform.md)                 | [Typography](typography.md)        |
-| ----------------------------------- | ------------------------------------------------------- | ------------------------------------------ | --------------------------------- | ------------------------ | ---------------------------------- | ------------------------------------- | ------------------------------------------- | ----------------------------------------- | ---------------------------------- |
-| [background()](color.md#background) | [HALF_PI](constants.md#HALF_PI)                         | [keyPressed()](events.md#keyPressed)       | [Image](image.md#Image)           | [millis()](io.md#millis) | [random()](math.md#random)         | [ellipse()](shape.md#ellipse)         | [destroy()](structure.md#destroy)           | [applyMatrix()](transform.md#applyMatrix) | [Font](typography.md#font)         |
-| [clear()](color.md#clear)           | [MOUSE_BUTTON_LEFT](constants.md#MOUSE_BUTTON_LEFT)     | [keyReleased()](events.md#keyReleased)     | [image()](image.md#image)         |                          | [randomSeed()](math.md#randomSeed) | [ellipseMode()](shape.md#ellipseMode) | [draw()](structure.md#draw)                 | [resetMatrix()](transform.md#resetMatrix) | [text()](typography.md#text)       |
-| [fill()](color.md#fill)             | [MOUSE_BUTTON_RIGHT](constants.md#MOUSE_BUTTON_RIGHT)   | [mouseMoved()](events.md#mouseMoved)       | [imageMode()](image.md#imageMode) |                          |                                    | [line()](shape.md#line)               | [loop()](structure.md#loop)                 | [rotate()](transform.md#rotate)           | [textFont()](textFont.md#textFont) |
-| [noFill()](color.md#noFill)         | [MOUSE_BUTTON_MIDDLE](constants.md#MOUSE_BUTTON_MIDDLE) | [mousePressed()](events.md#mousePressed)   | [loadImage()](image.md#loadImage) |                          |                                    | [point()](shape.md#point)             | [noLoop()](structure.md#noLoop)             | [scale()](transform.md#scale)             | [textSize()](textSize.md#textSize) |
-| [noStroke()](color.md#noStroke)     | [PI](constants.md#PI)                                   | [mouseReleased()](events.md#mouseReleased) |                                   |                          |                                    | [rect()](shape.md#rect)               | [push()](structure.md#push)                 | [translate()](transform.md#translate)     |                                    |
-| [stroke()](color.md#stroke)         | [QUARTER_PI](constants.md#QUARTER_PI)                   | [mouseWheel()](events.md#mouseWheel)       |                                   |                          |                                    | [rectMode()](shape.md#rectMode)       | [pop()](structure.md#pop)                   |                                           |                                    |
-|                                     | [TWO_PI](constants.md#TWO_PI)                           |                                            |                                   |                          |                                    | [triangle()](shape.md#triangle)       | [redraw()](structure.md#redraw)             |                                           |                                    |
-|                                     |                                                         |                                            |                                   |                          |                                    |                                       | [setup()](structure.md#setup)               |                                           |                                    |
-|                                     |                                                         |                                            |                                   |                          |                                    |                                       | [strokeWeight()](structure.md#strokeWeight) |                                           |                                    |
+<style>
+    .container {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-column-gap: 15px;
+        grid-row-gap: 15px;
+    }
+    .container div {
+        background: #F8F8F8;
+        padding: 15px;
+    }
+    .container div h4  {
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
+    .container div ul {
+        list-style: none;
+        padding-left: 0;
+        margin-bottom: 0px;
+    }
+</style>
+<div class="container">
+    <div>
+        <h4>[Color](color.md)</h4>
+        <ul>
+            <li>[background()](color.md#background)</li>
+            <li>[clear()](color.md#clear)</li>
+            <li>[fill()](color.md#fill)</li>
+            <li>[noFill()](color.md#noFill)</li>
+            <li>[noStroke()](color.md#noStroke)</li>
+            <li>[stroke()](color.md#stroke)</li>
+        </ul>
+    </div>
+    <div>
+        <h4>[Constants](constants.md)</h4>
+        <ul>
+            <li>[HALF_PI](constants.md#HALF_PI)</li>
+            <li>[Keycodes](constants.md#keycodes)</li>
+            <li>[MOUSE_BUTTON_LEFT](constants.md#MOUSE_BUTTON_LEFT)</li>
+            <li>[MOUSE_BUTTON_RIGHT](constants.md#MOUSE_BUTTON_RIGHT)</li>
+            <li>[MOUSE_BUTTON_MIDDLE](constants.md#MOUSE_BUTTON_MIDDLE)</li>
+            <li>[PI](constants.md#PI)</li>
+            <li>[QUARTER_PI](constants.md#QUARTER_PI)</li>
+            <li>[TWO_PI](constants.md#TWO_PI)</li>
+        </ul>
+    </div>
+    <div>
+        <h4>[Events](events.md)</h4>
+        <ul>
+            <li>[keyPressed()](events.md#keyPressed)</li>
+            <li>[keyReleased()](events.md#keyReleased)</li>
+            <li>[mouseMoved()](events.md#mouseMoved)</li>
+            <li>[mousePressed()](events.md#mousePressed)</li>
+            <li>[mouseReleased()](events.md#mouseReleased)</li>
+            <li>[mouseWheel()](events.md#mouseWheel)</li>
+        </ul>
+    </div>
+    <div>
+        <h4>[Image](image.md)</h4>
+        <ul>
+            <li>[Image](image.md#Image)</li>
+            <li>[image()](image.md#image)</li>
+            <li>[imageMode()](image.md#imageMode)</li>
+            <li>[loadImage()](image.md#loadImage)</li>
+        </ul>
+    </div>
+    <div>
+        <h4>[IO](io.md)</h4>
+        <ul>
+            <li>[millis()](io.md#millis)</li>
+        </ul>
+    </div>
+    <div>
+        <h4>[Math](math.md)</h4>
+        <ul>
+            <li>[random()](math.md#random)</li>
+            <li>[randomSeed()](math.md#randomSeed)</li>
+        </ul>
+    </div>
+    <div>
+        <h4>[Shape](shape.md)</h4>
+        <ul>
+            <li>[ellipse()](shape.md#ellipse)</li>
+            <li>[ellipseMode()](shape.md#ellipseMode)</li>
+            <li>[line()](shape.md#line)</li>
+            <li>[point()](shape.md#point)</li>
+            <li>[rect()](shape.md#rect)</li>
+            <li>[rectMode()](shape.md#rectMode)</li>
+            <li>[triangle()](shape.md#triangle)</li>
+        </ul>
+    </div>
+    <div>
+        <h4>[Structure](structure.md)</h4>
+        <ul>
+            <li>[destroy()](structure.md#destroy)</li>
+            <li>[draw()](structure.md#draw)</li>
+            <li>[loop()](structure.md#loop)</li>
+            <li>[noLoop()](structure.md#noLoop)</li>
+            <li>[push()](structure.md#push)</li>
+            <li>[pop()](structure.md#pop)</li>
+            <li>[redraw()](structure.md#redraw)</li>
+            <li>[setup()](structure.md#setup)</li>
+            <li>[strokeWeight()](structure.md#strokeWeight)</li>
+        </ul>
+    </div>
+    <div>
+        <h4>[Transform](transform.md)</h4>
+        <ul>
+            <li>[applyMatrix()](transform.md#applyMatrix)</li>
+            <li>[resetMatrix()](transform.md#resetMatrix)</li>
+            <li>[rotate()](transform.md#rotate)</li>
+            <li>[scale()](transform.md#scale)</li>
+            <li>[translate()](transform.md#translate)</li>
+        </ul>
+    </div>
+    <div>
+        <h4>[Typography](typography.md)</h4>
+        <ul>
+            <li>[Font](typography.md#font)</li>
+            <li>[text()](typography.md#text)</li>
+            <li>[textFont()](typography.md#textFont)</li>
+            <li>[textSize()](typography.md#textSize)</li>
+        </ul>
+    </div>
+</div>

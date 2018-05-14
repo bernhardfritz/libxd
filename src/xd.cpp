@@ -18,6 +18,10 @@
 #include <algorithm>
 #include <random>
 
+#define STB_IMAGE_IMPLEMENTATION
+#define STBI_FAILURE_USERMSG
+#include <stb/stb_image.h>
+
 namespace xd {
 
 int width = 100, height = 100, frameCount = 0;
@@ -98,6 +102,23 @@ static void framebuffer_size_callback(GLFWwindow* window, int framebufferWidth_,
 
 int displayDensity() {
 	return displayDensity_;
+}
+
+Image* loadImage(const string& filename) {
+	Image* img = new Image();
+	stbi_set_flip_vertically_on_load(1);
+	unsigned char* data = stbi_load(filename.c_str(), &img->width, &img->height, NULL, 4);
+	if (!data) {
+		fprintf(stderr, "%s\n", stbi_failure_reason());
+		delete img;
+		return nullptr;
+	}
+	glGenTextures(1, &img->texture);
+	glBindTexture(GL_TEXTURE_2D, img->texture);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, img->width, img->height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+	stbi_image_free(data);
+	glBindTexture(GL_TEXTURE_2D, 0);
+	return img;
 }
 
 float millis() {
@@ -199,6 +220,11 @@ void fill(vec4 color) {
 	settings.doFill = 1;
 }
 
+void imageMode(DrawMode drawMode) {
+	Settings& settings = peek();
+	settings.imageMode = drawMode;
+}
+
 void noFill() {
 	Settings& settings = peek();
 	settings.doFill = 0;
@@ -223,6 +249,16 @@ void stroke(vec4 color) {
 void strokeWeight(float weight) {
 	Settings& settings = peek();
 	settings.strokeWeight = weight;
+}
+
+void textFont(Font& font) {
+	Settings& settings = peek();
+	settings.font = &font;
+}
+
+void textSize(float theSize) {
+	Settings& settings = peek();
+	settings.textSize = theSize;
 }
 
 void applyMatrix(float a, float b, float c, float d, float e, float f) {
@@ -312,26 +348,24 @@ void ellipse(float a, float b, float c, float d) {
 	pop();
 }
 
-void image(Image* img, float x, float y, float w, float h) {
+void image(Image* img, float dx, float dy, float dWidth, float dHeight, float sx, float sy, float sWidth, float sHeight) {
 	imageShaderProgram->bind();
 	img->pixels.uploadIfNecessary();
 	glBindTexture(GL_TEXTURE_2D, img->texture);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	imageShaderProgram->setUniform("uTexture", 0);
-	rect(x, y, w, h);
+	mat4 textureMatrix = mat4(1.0f);
+	textureMatrix = translate(textureMatrix, vec3(sx / img->width, (img->height - sy - sHeight) / img->height, 0.0f));
+	textureMatrix = scale(textureMatrix, vec3(sWidth / img->width, sHeight / img->height, 1.0f));
+	imageShaderProgram->setUniform("uTextureMatrix", textureMatrix);
+	rect(dx, dy, dWidth, dHeight, true);
 	glBindTexture(GL_TEXTURE_2D, 0);
 	shaderProgram->bind();
 }
 
-void textFont(Font& font) {
-	Settings& settings = peek();
-	settings.font = &font;
-}
-
-void textSize(float theSize) {
-	Settings& settings = peek();
-	settings.textSize = theSize;
+void image(Image* img, float x, float y, float w, float h) {
+	image(img, x, y, w, h, 0.0f, 0.0f, img->width, img->height);
 }
 
 void text(const string& str, float x, float y) {
@@ -437,10 +471,10 @@ void point(float x, float y) {
 	pop();
 }
 
-void rect(float a, float b, float c, float d) {
+void rect(float a, float b, float c, float d, bool useImageMode) {
 	push();
 	Settings& settings = peek();
-	switch(settings.rectMode) {
+	switch(useImageMode ? settings.imageMode : settings.rectMode) {
 		case CENTER:
 			translate(a - c / 2, b - d / 2);
 			scale(c * displayDensity() / framebufferWidth , d * displayDensity() / framebufferHeight);
@@ -569,6 +603,7 @@ int main(int argc, char* argv[]) {
 
 	imageShaderProgram->createUniform("uMVP");
 	imageShaderProgram->createUniform("uTexture");
+	imageShaderProgram->createUniform("uTextureMatrix");
 
 	vec3 eye = vec3(0.0f, 0.0f, 0.0f);
 	vec3 center = vec3(0.0f, 0.0f, -1.0f);
