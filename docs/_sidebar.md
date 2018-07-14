@@ -18,11 +18,13 @@
 	- [Typography](typography.md)
 
 - Examples
+	- [A* search algorithm](examples/astar.md)
 	- [Fireworks](examples/fireworks.md)
 	- [Image](examples/image.md)
 	- [Keyboard interaction](examples/keyboard.md)
 	- [Lights](examples/lights.md)
 	- [Mouse interaction](examples/mouse.md)
+	- [Movement](examples/movement.md)
 	- [Quickstart](examples/quickstart.md)
 	- [Renderpasses](examples/renderpasses.md)
 	- [Text](examples/text.md)
