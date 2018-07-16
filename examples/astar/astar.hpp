@@ -6,7 +6,7 @@
 
 class AStar {
 private:
-    bool* collisionGrid;
+    const std::vector<bool>& collisionGrid;
     int cols, rows;
     bool moveDiagonally;
     const std::vector<std::pair<int, int>> directions = {
@@ -18,7 +18,7 @@ private:
     bool isCollisionAt(int x, int y) { return collisionGrid[y * cols + x]; }
 
 public:
-    AStar(bool* collisionGrid, int cols, int rows, bool moveDiagonally)
+    AStar(const std::vector<bool>& collisionGrid, int cols, int rows, bool moveDiagonally)
         : collisionGrid(collisionGrid)
         , cols(cols)
         , rows(rows)

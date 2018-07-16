@@ -5,7 +5,7 @@ using namespace xd;
 
 const int rows = 100, cols = 100;
 float w, h, wh, hh;
-bool collisionGrid[cols * rows] = { false };
+vector<bool> collisionGrid(cols * rows);
 int gx = cols - 1, gy = rows - 1;
 AStar* astar;
 vector<pair<int, int>> path;
