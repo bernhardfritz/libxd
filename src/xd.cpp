@@ -358,6 +358,7 @@ void image(Image* img, float dx, float dy, float dWidth, float dHeight, float sx
 	imageShaderProgram->setUniform("uTexture", 0);
 	imageShaderProgram->setUniform("uTintColor", settings.tintColor);
 	imageShaderProgram->setUniform("uDoTint", settings.doTint);
+	imageShaderProgram->setUniform("uDoColorOverlay", settings.doColorOverlay);
 	mat4 textureMatrix = mat4(1.0f);
 	textureMatrix = translate(textureMatrix, vec3(sx / img->width, (img->height - sy - sHeight) / img->height, 0.0f));
 	textureMatrix = scale(textureMatrix, vec3(sWidth / img->width, sHeight / img->height, 1.0f));
@@ -371,15 +372,17 @@ void image(Image* img, float x, float y, float w, float h) {
 	image(img, x, y, w, h, 0.0f, 0.0f, img->width, img->height);
 }
 
-void tint(vec4 color) {
+void tint(vec4 color, bool colorOverlay) {
 	Settings& settings = peek();
 	settings.tintColor = color;
 	settings.doTint = 1;
+	settings.doColorOverlay = colorOverlay ? 1 : 0;
 }
 
 void noTint() {
 	Settings& settings = peek();
 	settings.doTint = 0;
+	settings.doColorOverlay = 0;
 }
 
 void text(const string& str, float x, float y) {
@@ -620,6 +623,7 @@ int main(int argc, char* argv[]) {
 	imageShaderProgram->createUniform("uTextureMatrix");
 	imageShaderProgram->createUniform("uTintColor");
 	imageShaderProgram->createUniform("uDoTint");
+	imageShaderProgram->createUniform("uDoColorOverlay");
 
 	vec3 eye = vec3(0.0f, 0.0f, 0.0f);
 	vec3 center = vec3(0.0f, 0.0f, -1.0f);

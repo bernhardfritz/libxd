@@ -59,7 +59,7 @@ void translate(float x, float y);
 void ellipse(float x, float y, float w, float h);
 void image(Image* img, float dx, float dy, float dWidth, float dHeight, float sx, float sy, float sWidth, float sHeight);
 void image(Image* img, float x, float y, float w, float h);
-void tint(vec4 color);
+void tint(vec4 color, bool colorOverlay = false);
 void noTint();
 void text(const string& str, float x, float y);
 void line(float x1, float y1, float x2, float y2);

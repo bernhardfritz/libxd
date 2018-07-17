@@ -12,7 +12,7 @@ namespace xd {
 class Settings {
 public:
     glm::vec4 fillColor, strokeColor, tintColor;
-	int doFill, doStroke, doTint;
+	int doFill, doStroke, doTint, doColorOverlay;
 	float strokeWeight;
 	glm::mat4 modelMatrix;
 	DrawMode rectMode, ellipseMode, imageMode;
@@ -26,6 +26,7 @@ public:
         , doFill(1)
         , doStroke(1)
         , doTint(0)
+        , doColorOverlay(0)
         , strokeWeight(1.0f)
         , modelMatrix(glm::mat4(1.0f))
         , rectMode(CORNER)
