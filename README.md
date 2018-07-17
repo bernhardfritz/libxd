@@ -17,6 +17,15 @@
 
 # Changelog
 
+## [0.3.2](https://github.com/bernhardfritz/libxd/releases/tag/0.3.2)
+
+### Added
+
+* a function `tint()` that allows to tint images.
+* the function `noTint()`.
+* tint example.
+* a cmake option to disable building the examples.
+
 ## [0.3.1](https://github.com/bernhardfritz/libxd/releases/tag/0.3.1)
 
 ### Added

@@ -64,6 +64,8 @@
             <li>[image()](image.md#image)</li>
             <li>[imageMode()](image.md#imageMode)</li>
             <li>[loadImage()](image.md#loadImage)</li>
+            <li>[noTint()](image.md#noTint)</li>
+            <li>[tint()](image.md#tint)</li>
         </ul>
     </div>
     <div>

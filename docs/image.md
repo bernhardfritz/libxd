@@ -123,3 +123,35 @@ loadImage(filename)
 #### Returns
 
 Image*: a pointer to the Image object
+
+---
+
+## noTint()
+
+#### Description
+
+Removes the current fill value for displaying images and reverts to displaying images with their original hues.
+
+#### Syntax
+
+```C++
+noTint()
+```
+
+---
+
+## tint()
+
+#### Description
+
+Sets the fill value for displaying images.
+
+#### Syntax
+
+```C++
+tint(color)
+```
+
+#### Parameters
+
+`color` vec4: the tint color

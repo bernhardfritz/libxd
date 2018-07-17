@@ -108,7 +108,10 @@ add_custom_command(
 #     DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/resources/Open_Sans/OpenSans-Regular.ttf
 # )
 
-add_subdirectory(examples)
+option(BUILD_EXAMPLES "Build examples" ON)
+if (BUILD_EXAMPLES)
+    add_subdirectory(examples)
+endif (BUILD_EXAMPLES)
 
 # the .glsl shaders would not have to be copied over to the build directory since they are already embedded in the header files
 # this is currently only relevant for the logo.png resource which is used in the image example and might be handled differently in future
@@ -133,7 +136,7 @@ install(
 set(CPACK_PACKAGE_NAME "libxd")
 set(CPACK_PACKAGE_VENDOR "Bernhard Fritz")
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "libxd - A simple 2D graphics library for C++.")
-set(CPACK_PACKAGE_VERSION "0.3.1")
+set(CPACK_PACKAGE_VERSION "0.3.2")
 
 set(CPACK_MONOLITHIC_INSTALL 1)
 set(CPACK_INCLUDE_TOPLEVEL_DIRECTORY 0)

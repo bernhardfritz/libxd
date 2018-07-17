@@ -1,6 +1,6 @@
 ![logo](_media/logo.svg)
 
-# libxd <small>0.3.1</small>
+# libxd <small>0.3.2</small>
 
 > A simple 2D graphics library for C++.
 

@@ -32,3 +32,4 @@
 	- [2DWater](examples/2dwater.md)
 	- [Space Invaders](examples/spaceinvaders.md)
 	- [Spritesheets](examples/spritesheets.md)
+	- [Tint](examples/tint.md)

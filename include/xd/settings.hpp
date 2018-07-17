@@ -11,8 +11,8 @@ namespace xd {
 
 class Settings {
 public:
-    glm::vec4 fillColor, strokeColor;
-	int doFill, doStroke;
+    glm::vec4 fillColor, strokeColor, tintColor;
+	int doFill, doStroke, doTint;
 	float strokeWeight;
 	glm::mat4 modelMatrix;
 	DrawMode rectMode, ellipseMode, imageMode;
@@ -22,8 +22,10 @@ public:
     Settings()
         : fillColor(glm::vec4(1.0f, 1.0f, 1.0f, 1.0f))
         , strokeColor(glm::vec4(0.0f, 0.0f, 0.0f, 1.0f))
+        , tintColor(glm::vec4(1.0f, 1.0f, 1.0f, 1.0f))
         , doFill(1)
         , doStroke(1)
+        , doTint(0)
         , strokeWeight(1.0f)
         , modelMatrix(glm::mat4(1.0f))
         , rectMode(CORNER)
