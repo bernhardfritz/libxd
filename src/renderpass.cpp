@@ -48,7 +48,7 @@ void RenderPass::initFramebufferTexture() {
     delete texture;
 	texture = new Texture(width * displayDensity(), height * displayDensity(), GL_RGB, nullptr);
 	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, texture->texture, 0);
-    background(vec4(vec3(0.3), 1.0));
+    background(vec4(vec3(0.3f), 1.0f));
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
@@ -65,6 +65,7 @@ void RenderPass::render(bool renderToScreen) {
             renderPasses[i]->texture->bind();
             shaderProgram->setUniform("uTexture" + to_string(i), i);
         }
+        background(vec4(vec3(0.0f), 1.0f));
         rect(0, 0, width, height);
         for (int i = 0; i < renderPasses.size(); i++) {
             renderPasses[i]->texture->unbind();
