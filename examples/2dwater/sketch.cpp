@@ -31,7 +31,7 @@ void onMouseMoved(float x, float y) {
 }
 
 void setup() {
-    size(cols, rows);
+	size(cols, rows);
 	mouseMoved(onMouseMoved);
 }
 
