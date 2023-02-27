@@ -1,3 +1,5 @@
+# libxd has been archived and will no longer be maintained. Please switch to https://github.com/bernhardfritz/p8g for continued support. Thanks!
+
 <p align="center">
   <a href="https://bernhardfritz.github.io/libxd/">
     <img alt="libxd" src="./docs/_media/logo.svg">
@@ -11,152 +13,152 @@
 <!-- zip -r9 libxd.zip libxd/ -x "*.git*" */lib/**\* -->
 <!-- cpack -G ZIP -->
 
-# Links
+## Links
 
-* [Documentation](https://bernhardfritz.github.io/libxd/)
+- [Documentation](https://bernhardfritz.github.io/libxd/)
 
-# Changelog
+## Changelog
 
-## [0.3.2](https://github.com/bernhardfritz/libxd/releases/tag/0.3.2)
+### [0.3.2](https://github.com/bernhardfritz/libxd/releases/tag/0.3.2)
 
-### Added
+#### Added
 
-* a function `tint()` that allows to tint images.
-* the function `noTint()`.
-* tint example.
-* a cmake option to disable building the examples.
+- a function `tint()` that allows to tint images.
+- the function `noTint()`.
+- tint example.
+- a cmake option to disable building the examples.
 
-## [0.3.1](https://github.com/bernhardfritz/libxd/releases/tag/0.3.1)
+### [0.3.1](https://github.com/bernhardfritz/libxd/releases/tag/0.3.1)
 
-### Added
+#### Added
 
-* overloaded function `image()` that allows to display subimages which could be very useful for spritesheets and animations.
-* the function `imageMode()`.
-* spritesheet example.
+- overloaded function `image()` that allows to display subimages which could be very useful for spritesheets and animations.
+- the function `imageMode()`.
+- spritesheet example.
 
-### Changed
+#### Changed
 
-* the function `loadImage()` to return `nullptr` and print an error message if anything went wrong loading the image.
-* the documentation by overhauling the section "Outline" and "Image".
+- the function `loadImage()` to return `nullptr` and print an error message if anything went wrong loading the image.
+- the documentation by overhauling the section "Outline" and "Image".
 
-## [0.3.0](https://github.com/bernhardfritz/libxd/releases/tag/0.3.0)
+### [0.3.0](https://github.com/bernhardfritz/libxd/releases/tag/0.3.0)
 
-### Added
+#### Added
 
-* support for custom shaders and renderpasses.
-* several new examples, showcasing the capabilities of renderpasses.
+- support for custom shaders and renderpasses.
+- several new examples, showcasing the capabilities of renderpasses.
 
-### Changed
+#### Changed
 
-* the way how stuff is rendered, allowing deferred rendering techniques.
-* the attributes of Shape, i.e. removal of obsolete color attribute.
-* the function signature of `image()`.
-* the default shader, i.e. refactored the `image()` related glsl code into a seperate shader.
+- the way how stuff is rendered, allowing deferred rendering techniques.
+- the attributes of Shape, i.e. removal of obsolete color attribute.
+- the function signature of `image()`.
+- the default shader, i.e. refactored the `image()` related glsl code into a seperate shader.
 
-### Fixed
+#### Fixed
 
-* default background color not being applied.
+- default background color not being applied.
 
-## [0.2.1](https://github.com/bernhardfritz/libxd/releases/tag/0.2.1)
+### [0.2.1](https://github.com/bernhardfritz/libxd/releases/tag/0.2.1)
 
-### Fixed
+#### Fixed
 
-* display density to be considered when rendering text.
+- display density to be considered when rendering text.
 
-## [0.2.0](https://github.com/bernhardfritz/libxd/releases/tag/0.2.0)
+### [0.2.0](https://github.com/bernhardfritz/libxd/releases/tag/0.2.0)
 
-### Added
+#### Added
 
-* support for text rendering.
+- support for text rendering.
 
-### Changed
+#### Changed
 
-* the way shaders are handled.
+- the way shaders are handled.
 
-## [0.1.1](https://github.com/bernhardfritz/libxd/releases/tag/0.1.1)
+### [0.1.1](https://github.com/bernhardfritz/libxd/releases/tag/0.1.1)
 
-### Added
+#### Added
 
-* Quadtree example.
+- Quadtree example.
 
-### Changed
+#### Changed
 
-* the way memory is allocated for the settings stack.
+- the way memory is allocated for the settings stack.
 
-### Fixed
+#### Fixed
 
-* `point()` not being affected by `strokeWeight()`.
+- `point()` not being affected by `strokeWeight()`.
 
-## [0.1.0](https://github.com/bernhardfritz/libxd/releases/tag/0.1.0)
+### [0.1.0](https://github.com/bernhardfritz/libxd/releases/tag/0.1.0)
 
-### Added
+#### Added
 
-* namespace xd.
-* a small program that can be used to embed text-based resource files into headers.
-* install targets.
-* package targets.
-* releases for Linux, macOS and Windows.
+- namespace xd.
+- a small program that can be used to embed text-based resource files into headers.
+- install targets.
+- package targets.
+- releases for Linux, macOS and Windows.
 
-### Changed
+#### Changed
 
-* shader version to GLSL 3.30.
-* include directory folder structure.
-* the way how shaders are loaded.
-* the libxd logo.
-* the documentation.
+- shader version to GLSL 3.30.
+- include directory folder structure.
+- the way how shaders are loaded.
+- the libxd logo.
+- the documentation.
 
-## 0.0.3
+### 0.0.3
 
-### Added
+#### Added
 
-* the possibility to define key event callbacks using the functions `keyPressed()` and `keyReleased()`.
-* keyboard interaction example.
+- the possibility to define key event callbacks using the functions `keyPressed()` and `keyReleased()`.
+- keyboard interaction example.
 
-### Changed
+#### Changed
 
-* the documentation.
-* some cmake build scripts.
+- the documentation.
+- some cmake build scripts.
 
-## 0.0.2
+### 0.0.2
 
-### Added
+#### Added
 
-* the possibility to define mouse event callbacks using the functions `mouseMoved()`, `mousePressed()`, `mouseReleased()` and `mouseWheel()`.
-* mouse interaction example.
-* Google Analytics.
+- the possibility to define mouse event callbacks using the functions `mouseMoved()`, `mousePressed()`, `mouseReleased()` and `mouseWheel()`.
+- mouse interaction example.
+- Google Analytics.
 
-### Changed
+#### Changed
 
-* the location of `include/stb_image.h` to `lib/stb/stb_image.h`.
-* the documentation.
-* some cmake build scripts.
+- the location of `include/stb_image.h` to `lib/stb/stb_image.h`.
+- the documentation.
+- some cmake build scripts.
 
-### Fixed
+#### Fixed
 
-* the lib folder being wrongly identified as a first party source folder by github's linguist.
+- the lib folder being wrongly identified as a first party source folder by github's linguist.
 
-## 0.0.1
+### 0.0.1
 
 This is the start of libxd as a remote repository. Prior to publishing libxd to github goes about 2 months of local development. These are rudimentary changelogs from the time before github:
 
-### Added
+#### Added
 
-* the functions `setup()`, `draw()` and `destroy()` using forward declaration.
-* global variables `width`, `height` to retrieve the current width and height.
-* shape functions: `ellipse()`, `line()`, `point()`, `rect()`, `triangle()`.
-* vertex, geometry and fragment shaders which contain e.g. the logic that allows to draw outlined shapes in a single render cycle.
-* drawing style functions: `background()`, `clear()`, `ellipseMode()`, `fill()`, `noFill()`, `noStroke()`, `rectMode()`, `stroke()`, `strokeWeight()`.
-* support of alpha channel for functions that deal with colors.
-* transformation functions: `applyMatrix()`, `resetMatrix()`, `rotate()`, `scale()`, `translate()`.
-* constants: `HALF_PI`, `PI`, `QUARTER_PI`, `TWO_PI`.
-* the functions `push()` and `pop()` which allow the current drawing style settings and matrix transformations to be temporarily saved on a stack.
-* the possibility to directly modify window pixels using the global variable `pixels`.
-* support for image loading.
-* the possibility to directly modify image pixels using the member variable `Image::pixels`.
-* convenience functions like: `millis()`, `random()`, `randomSeed()`.
-* functions that allow to alter the control flow: `loop()`, `noLoop()`.
-* a function `redraw()` that ought to be used in conjunction with `noLoop`.
-* libraries: `glad`, `glfw`, `glm`, `stb_image`.
-* a docsify documentation.
-* cmake build scripts.
-* fireworks example.
+- the functions `setup()`, `draw()` and `destroy()` using forward declaration.
+- global variables `width`, `height` to retrieve the current width and height.
+- shape functions: `ellipse()`, `line()`, `point()`, `rect()`, `triangle()`.
+- vertex, geometry and fragment shaders which contain e.g. the logic that allows to draw outlined shapes in a single render cycle.
+- drawing style functions: `background()`, `clear()`, `ellipseMode()`, `fill()`, `noFill()`, `noStroke()`, `rectMode()`, `stroke()`, `strokeWeight()`.
+- support of alpha channel for functions that deal with colors.
+- transformation functions: `applyMatrix()`, `resetMatrix()`, `rotate()`, `scale()`, `translate()`.
+- constants: `HALF_PI`, `PI`, `QUARTER_PI`, `TWO_PI`.
+- the functions `push()` and `pop()` which allow the current drawing style settings and matrix transformations to be temporarily saved on a stack.
+- the possibility to directly modify window pixels using the global variable `pixels`.
+- support for image loading.
+- the possibility to directly modify image pixels using the member variable `Image::pixels`.
+- convenience functions like: `millis()`, `random()`, `randomSeed()`.
+- functions that allow to alter the control flow: `loop()`, `noLoop()`.
+- a function `redraw()` that ought to be used in conjunction with `noLoop`.
+- libraries: `glad`, `glfw`, `glm`, `stb_image`.
+- a docsify documentation.
+- cmake build scripts.
+- fireworks example.
